@@ -19,6 +19,13 @@ logging:
     io.github.jhipster: INFO
     ar.edu.um.final: INFO
 
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
+
 management:
   metrics:
     export:
@@ -51,9 +58,16 @@ spring:
     properties:
       hibernate.id.new_generator_mappings: true
       hibernate.connection.provider_disables_autocommit: true
-      hibernate.cache.use_second_level_cache: false
+      hibernate.cache.use_second_level_cache: true
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
+  data:
+    jest:
+      uri: http://localhost:9200
+  # see https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-nosql.html#boot-features-connecting-to-elasticsearch-jest
+  elasticsearch:
+    rest:
+      uris: http://localhost:9200
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
     contexts: prod
@@ -64,6 +78,15 @@ spring:
     password:
   thymeleaf:
     cache: true
+  sleuth:
+    sampler:
+      probability: 1 # report 100% of traces
+  zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies
+    base-url: http://localhost:9411
+    enabled: false
+    locator:
+      discovery:
+        enabled: true
 
 # ===================================================================
 # To enable TLS in production, generate a certificate using:
@@ -113,7 +136,7 @@ jhipster:
         # - In the JHipster Registry (which includes a Spring Cloud Config server)
         # - In a separate `application-prod.yml` file, in the same folder as your executable JAR file
         # - In the `JHIPSTER_SECURITY_AUTHENTICATION_JWT_BASE64_SECRET` environment variable
-        base64-secret: YjhiNzEwNmJjZGE5ZDE2ZTYzYmQzMzRkMTE5MzNjZDBmZThkZmYzM2JlMzEzZWNhZjkyMWQyZmY5YWM5NTUwZWNlNjQ3NjA0MDg4NjUyODhiN2YwYzBhNWJiYzI3YTY3NWY4YmJjZWI5ZWM0ODdhYmJjZjA1NjBmOGZhNzhhZDM=
+        base64-secret: MTk0NWM1ODlkZTYwNzgzYzk4NDUwOGU3MjIyNGE4OWU5MGI0OWU2MDUwYzM5MDVlNWY3OGViOTZjYzRlNzRjZGIyOGEwMTFlZjVjOTU5MTlkNzViODRkYzI4NWI1MGUxNWU1OGU1YmRmYzdhNTZjN2E2ZDRjMGYxOGUzZWIxM2Y=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000

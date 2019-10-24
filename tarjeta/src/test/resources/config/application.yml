@@ -13,6 +13,13 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+eureka:
+  client:
+    enabled: false
+  instance:
+    appname: tarjeta
+    instanceId: tarjeta:${spring.application.instance-id:${random.value}}
+
 spring:
   application:
     name: tarjeta
@@ -42,6 +49,11 @@ spring:
       hibernate.generate_statistics: false
       hibernate.hbm2ddl.auto: validate
       hibernate.jdbc.time_zone: UTC
+  data:
+    elasticsearch:
+      properties:
+        path:
+          home: target/elasticsearch
   liquibase:
     contexts: test
   mail:
@@ -95,7 +107,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
-        base64-secret: YjhiNzEwNmJjZGE5ZDE2ZTYzYmQzMzRkMTE5MzNjZDBmZThkZmYzM2JlMzEzZWNhZjkyMWQyZmY5YWM5NTUwZWNlNjQ3NjA0MDg4NjUyODhiN2YwYzBhNWJiYzI3YTY3NWY4YmJjZWI5ZWM0ODdhYmJjZjA1NjBmOGZhNzhhZDM=
+        base64-secret: MTk0NWM1ODlkZTYwNzgzYzk4NDUwOGU3MjIyNGE4OWU5MGI0OWU2MDUwYzM5MDVlNWY3OGViOTZjYzRlNzRjZGIyOGEwMTFlZjVjOTU5MTlkNzViODRkYzI4NWI1MGUxNWU1OGU1YmRmYzdhNTZjN2E2ZDRjMGYxOGUzZWIxM2Y=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
   metrics:
