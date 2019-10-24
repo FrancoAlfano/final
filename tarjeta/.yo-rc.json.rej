@@ -1,0 +1,7 @@
+diff a/tarjeta/.yo-rc.json b/tarjeta/.yo-rc.json	(rejected hunks)
+@@ -39,4 +39 @@
+-    "languages": [
+-      "en",
+-      "es"
+-    ],
++    "languages": ["en", "es"],
