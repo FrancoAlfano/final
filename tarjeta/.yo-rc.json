@@ -1,0 +1,42 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "ar.edu.um.final",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.3.1",
+    "applicationType": "monolith",
+    "baseName": "tarjeta",
+    "packageName": "ar.edu.um.final",
+    "packageFolder": "ar/edu/um/final",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YjhiNzEwNmJjZGE5ZDE2ZTYzYmQzMzRkMTE5MzNjZDBmZThkZmYzM2JlMzEzZWNhZjkyMWQyZmY5YWM5NTUwZWNlNjQ3NjA0MDg4NjUyODhiN2YwYzBhNWJiYzI3YTY3NWY4YmJjZWI5ZWM0ODdhYmJjZjA1NjBmOGZhNzhhZDM=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": ["en", "es"],
+    "blueprints": []
+  }
+}
