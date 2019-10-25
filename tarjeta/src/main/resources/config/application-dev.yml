@@ -17,20 +17,7 @@ logging:
   level:
     ROOT: DEBUG
     io.github.jhipster: DEBUG
-    ar.edu.um.final: DEBUG
-
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    enabled: false # By default, the JHipster Registry is not used in the "dev" profile
-    service-url:
-      defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
-
-management:
-  health:
-    elasticsearch:
-      enabled: false
+    ar.edu.um.final.tarjeta: DEBUG
 
 spring:
   profiles:
@@ -66,14 +53,9 @@ spring:
     properties:
       hibernate.id.new_generator_mappings: true
       hibernate.connection.provider_disables_autocommit: true
-      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_second_level_cache: false
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
-  data:
-    elasticsearch:
-      properties:
-        path:
-          home: target/elasticsearch
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
@@ -86,15 +68,6 @@ spring:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
     cache: false
-  sleuth:
-    sampler:
-      probability: 1 # report 100% of traces
-  zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies
-    base-url: http://localhost:9411
-    enabled: false
-    locator:
-      discovery:
-        enabled: true
 
 server:
   port: 8080
@@ -122,7 +95,7 @@ jhipster:
     authentication:
       jwt:
         # This token must be encoded using Base64 and be at least 256 bits long (you can type `openssl rand -base64 64` on your command line to generate a 512 bits one)
-        base64-secret: MTk0NWM1ODlkZTYwNzgzYzk4NDUwOGU3MjIyNGE4OWU5MGI0OWU2MDUwYzM5MDVlNWY3OGViOTZjYzRlNzRjZGIyOGEwMTFlZjVjOTU5MTlkNzViODRkYzI4NWI1MGUxNWU1OGU1YmRmYzdhNTZjN2E2ZDRjMGYxOGUzZWIxM2Y=
+        base64-secret: MzEyNzM2MGRiZGJjODAyNDRjNWRlZmQ2NGUwODMxNDJhNzk5MmZjMWE2YWMzMGRjNGQ4NzBmZGRlYzdkNmYxMjk2NTZmM2NhM2Y0ZTIyZjA1YmM2YTA3NjYzNzljYzU0Yzc4M2I0NmVmNzk3NDljNWIwZDY2MGEzZWYyMWIxNzA=
         # Token is valid 24 hours
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
