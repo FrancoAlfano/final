@@ -38,10 +38,10 @@ public class TarjetaService {
 		
 		return repository.findById(tarjetaId).map(tarjeta -> {
 			tarjeta.setCod_seguridad(newtarjeta.getCod_seguridad());
-			tarjeta.setId(newtarjeta.getId());
+			tarjeta.setVencimiento(newtarjeta.getVencimiento());
 			tarjeta.setMonto_max(newtarjeta.getMonto_max());
 			tarjeta.setNumero(newtarjeta.getNumero());
-			tarjeta.setVencimiento(newtarjeta.getVencimiento());
+			tarjeta.setTipo(newtarjeta.getTipo());
 			return repository.save(tarjeta);
 		}).orElseThrow(() -> new TarjetaNotFoundException(tarjetaId));
 	}

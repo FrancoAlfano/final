@@ -18,32 +18,30 @@ import lombok.Data;
 @Table(name = "tarjeta")
 public class Tarjeta implements Serializable{
 
-	private static final long serialVersionUID = 7352918788805814920L;
-	
+
+	private static final long serialVersionUID = 2976581438452388806L;
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "tarjeta_id")
 	private Long id;
 	
-	
-	@Column(name = "numero")
-	@NotNull
-	@Size(max=100)
-	private Long numero;
-	
-	@Column(name="cod_seguridad")
-	@NotNull
-	@Size(max=100)
+	@Column(name = "cod_seguridad")
 	private Long cod_seguridad;
 	
-	@Column(name="vencimiento")
-	@NotNull
-	@Size(max=100)
+	@Column(name = "vencimiento")
 	private Long vencimiento;
 	
-	@Column(name="monto_max")
+	@Column(name = "monto_max")
+	private Long monto_max;
+	
+	@Column(name = "numero")
+	private Long numero;
+	
+	@Column(name = "tipo")
 	@NotNull
-	@Size(max=100)
-	private Double monto_max;
-
+	@Size(max = 100)
+	private String tipo = "";
+	
 }
