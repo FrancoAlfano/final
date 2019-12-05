@@ -28,6 +28,14 @@ public class TarjetaService {
 		
 		return repository.findById(tarjetaId).orElseThrow(()-> new TarjetaNotFoundException(tarjetaId));
 	}
+	
+	public Long findByNumero(Long numero) {
+		Tarjeta tar = repository.findByNumero(numero).get(0);
+		Long id = tar.getId();
+		return id;
+
+	}
+	
 
 	public Void delete(Long tarjetaId) {
 		repository.deleteById(tarjetaId);
@@ -45,4 +53,7 @@ public class TarjetaService {
 			return repository.save(tarjeta);
 		}).orElseThrow(() -> new TarjetaNotFoundException(tarjetaId));
 	}
+
+
+
 }

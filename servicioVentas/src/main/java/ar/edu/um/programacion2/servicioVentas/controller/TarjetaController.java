@@ -23,27 +23,33 @@ public class TarjetaController {
 	@Autowired
 	private TarjetaService service;
 	
-	@GetMapping("/")
+	@GetMapping("/all")
 	public ResponseEntity<List<Tarjeta>> findAll(){
 		return new ResponseEntity<List<Tarjeta>>(service.findAll(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/{tarjetaId}")
+	@GetMapping("/find/{tarjetaId}")
 	public ResponseEntity<Tarjeta> findById(@PathVariable Long tarjetaId){
 		return new ResponseEntity<Tarjeta>(service.findById(tarjetaId), HttpStatus.OK);
 	}
 	
-	@PostMapping("/")
+	@GetMapping("/token/{numero}")
+	public ResponseEntity<Long> findByNumero(@PathVariable Long numero){
+		return new ResponseEntity<Long>(service.findByNumero(numero), HttpStatus.OK);
+		
+	}
+	
+	@PostMapping("/add")
 	public ResponseEntity<Tarjeta> add(@RequestBody Tarjeta tarjeta){
 		return new ResponseEntity<Tarjeta>(service.add(tarjeta), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{tarjetaId}")
-	public ResponseEntity<Void> delete(@PathVariable Long tarjetaId){
-		return new ResponseEntity<Void>(service.delete(tarjetaId), HttpStatus.NO_CONTENT);
+	@DeleteMapping("/remove/{numero}")
+	public ResponseEntity<Void> delete(@PathVariable Long numero){
+		return new ResponseEntity<Void>(service.delete(numero), HttpStatus.NO_CONTENT);
 	}
 	
-	@PutMapping("/{tarjetaId}")
+	@PutMapping("/update/{tarjetaId}")
 	public ResponseEntity<Tarjeta> update(@RequestBody Tarjeta tarjeta, @PathVariable Long tarjetaId){
 		return new ResponseEntity<Tarjeta>(service.update(tarjeta,tarjetaId), HttpStatus.OK);
 		
