@@ -1,13 +1,13 @@
-package ar.edu.um.programacion2.tarjeta.service;
+package ar.edu.um.programacion2.servicioVentas.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.um.programacion2.tarjeta.exception.TarjetaNotFoundException;
-import ar.edu.um.programacion2.tarjeta.model.Tarjeta;
-import ar.edu.um.programacion2.tarjeta.repository.ITarjetaRepository;
+import ar.edu.um.programacion2.servicioVentas.exception.TarjetaNotFoundException;
+import ar.edu.um.programacion2.servicioVentas.model.Tarjeta;
+import ar.edu.um.programacion2.servicioVentas.repository.ITarjetaRepository;
 
 @Service
 public class TarjetaService {

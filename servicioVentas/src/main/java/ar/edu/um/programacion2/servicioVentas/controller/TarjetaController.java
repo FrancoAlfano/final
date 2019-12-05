@@ -1,4 +1,4 @@
-package ar.edu.um.programacion2.tarjeta.controller;
+package ar.edu.um.programacion2.servicioVentas.controller;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.edu.um.programacion2.tarjeta.model.Tarjeta;
-import ar.edu.um.programacion2.tarjeta.service.TarjetaService;
+import ar.edu.um.programacion2.servicioVentas.model.Tarjeta;
+import ar.edu.um.programacion2.servicioVentas.service.TarjetaService;
 
 @RestController
 @RequestMapping("/tarjeta")

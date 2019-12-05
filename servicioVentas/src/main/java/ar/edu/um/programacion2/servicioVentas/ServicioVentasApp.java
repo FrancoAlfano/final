@@ -1,13 +1,13 @@
-package ar.edu.um.programacion2.tarjeta;
+package ar.edu.um.programacion2.servicioVentas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TarjetaApplication {
+public class ServicioVentasApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TarjetaApplication.class, args);
+		SpringApplication.run(ServicioVentasApp.class, args);
 	}
 
 }

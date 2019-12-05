@@ -1,4 +1,4 @@
-package ar.edu.um.programacion2.tarjeta.exception;
+package ar.edu.um.programacion2.servicioVentas.exception;
 
 public class TarjetaNotFoundException extends RuntimeException{
 
