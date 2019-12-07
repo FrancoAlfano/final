@@ -34,4 +34,7 @@ public class Venta implements Serializable{
 	@Column(name = "monto")
 	private Long monto;
 	
+	@Column(name = "fecha")
+	private Long fecha;
+	
 }

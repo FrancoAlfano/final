@@ -41,6 +41,7 @@ public class VentaService {
 			venta.setCliente_id(newventa.getCliente_id());
 			venta.setTarjeta_id(newventa.getTarjeta_id());
 			venta.setMonto(newventa.getMonto());
+			venta.setFecha(newventa.getFecha());
 			return repository.save(venta);
 		}).orElseThrow(() -> new VentaNotFoundException(ventaId));
 	}
