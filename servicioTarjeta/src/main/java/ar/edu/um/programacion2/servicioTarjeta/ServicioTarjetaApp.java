@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ServicioTarjetaApplication {
+public class ServicioTarjetaApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServicioTarjetaApplication.class, args);
+		SpringApplication.run(ServicioTarjetaApp.class, args);
 	}
 
 }

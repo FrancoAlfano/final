@@ -1,4 +1,4 @@
-package ar.edu.um.programacion2.servicioVentas.model;
+package ar.edu.um.programacion2.servicioTarjeta.model;
 
 import java.io.Serializable;
 
@@ -33,8 +33,8 @@ public class Tarjeta implements Serializable{
 	@Column(name = "vencimiento")
 	private Long vencimiento;
 	
-	@Column(name = "monto_max")
-	private Double monto_max;
+	@Column(name = "monto")
+	private Double monto;
 	
 	@Column(name = "numero")
 	private Long numero;
