@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.um.programacion2.servicioTarjeta.model.Tarjeta;
@@ -47,12 +46,12 @@ public class TarjetaController {
 		}else {
 			jo.put("codError", "20");
 			jo.put("error", "No existe tarjeta");
-			return new ResponseEntity<Object>(jo, HttpStatus.FORBIDDEN);
+			return new ResponseEntity<Object>(jo.toString(), HttpStatus.FORBIDDEN);
 		}
 		
 	}
 	
-	@GetMapping("/check/{tarjetaId}/{monto}")
+	@GetMapping("/monto/{tarjetaId}/{monto}")
 	public ResponseEntity<Tarjeta> findByIdAndMonto(@PathVariable Long tarjetaId, @PathVariable Double monto){
 		return new ResponseEntity<Tarjeta>(service.findByIdAndMonto(tarjetaId, monto), HttpStatus.OK);
 		
