@@ -22,6 +22,4 @@ public class TarjetaService {
 	public Tarjeta findByIdAndMonto(Long tarjetaId, Double monto) {
 		return repository.findByIdAndMonto(tarjetaId, monto);
 	}
-
-
 }

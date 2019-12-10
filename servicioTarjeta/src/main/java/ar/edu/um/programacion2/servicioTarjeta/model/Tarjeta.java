@@ -1,6 +1,7 @@
 package ar.edu.um.programacion2.servicioTarjeta.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,7 +32,7 @@ public class Tarjeta implements Serializable{
 	private Long cod_seguridad;
 	
 	@Column(name = "vencimiento")
-	private Long vencimiento;
+	private Date vencimiento;
 	
 	@Column(name = "monto")
 	private Double monto;

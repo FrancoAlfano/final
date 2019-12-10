@@ -1,6 +1,7 @@
 package ar.edu.um.programacion2.servicioVentas.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,6 +36,6 @@ public class Venta implements Serializable{
 	private Long monto;
 	
 	@Column(name = "fecha")
-	private Long fecha;
+	private Date fecha;
 	
 }
