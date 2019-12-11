@@ -47,7 +47,7 @@ public class TarjetaService {
 		return repository.findById(tarjetaId).map(tarjeta -> {
 			tarjeta.setCod_seguridad(newtarjeta.getCod_seguridad());
 			tarjeta.setVencimiento(newtarjeta.getVencimiento());
-			tarjeta.setMonto_max(newtarjeta.getMonto_max());
+			tarjeta.setMonto(newtarjeta.getMonto());
 			tarjeta.setNumero(newtarjeta.getNumero());
 			tarjeta.setTipo(newtarjeta.getTipo());
 			return repository.save(tarjeta);

@@ -34,8 +34,8 @@ public class Tarjeta implements Serializable{
 	@Column(name = "vencimiento")
 	private Date vencimiento;
 	
-	@Column(name = "monto_max")
-	private Double monto_max;
+	@Column(name = "monto")
+	private Double monto;
 	
 	@Column(name = "numero")
 	private Long numero;
