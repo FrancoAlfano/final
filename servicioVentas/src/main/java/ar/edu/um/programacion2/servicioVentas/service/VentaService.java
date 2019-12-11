@@ -37,7 +37,7 @@ public class VentaService {
 	public Venta update(Venta newventa, Long ventaId) {
 		
 		return repository.findById(ventaId).map(venta -> {
-			venta.setId(newventa.getId());
+			venta.setId(ventaId);
 			venta.setCliente_id(newventa.getCliente_id());
 			venta.setTarjeta_id(newventa.getTarjeta_id());
 			venta.setMonto(newventa.getMonto());
