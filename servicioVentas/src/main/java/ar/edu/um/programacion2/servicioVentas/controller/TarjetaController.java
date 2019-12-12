@@ -1,7 +1,6 @@
 package ar.edu.um.programacion2.servicioVentas.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,15 +32,17 @@ public class TarjetaController {
 		return new ResponseEntity<Tarjeta>(service.findById(tarjetaId), HttpStatus.OK);
 	}
 	
-	@GetMapping("/token/{numero}")
-	public ResponseEntity<Long> findByNumero(@PathVariable Long numero){
+	@PostMapping("/token")
+	public ResponseEntity<Long> findByNumero(@RequestBody Tarjeta tar){
+		Long numero = tar.getNumero();
 		return new ResponseEntity<Long>(service.findByNumero(numero), HttpStatus.OK);
 		
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<Tarjeta> add(@RequestBody Tarjeta tarjeta){
-		return new ResponseEntity<Tarjeta>(service.add(tarjeta), HttpStatus.OK);
+	public ResponseEntity<Object> add(@RequestBody Tarjeta tarjeta){
+		Tarjeta tar2 = service.add(tarjeta);
+		return new ResponseEntity<Object>(tar2.getId(), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/remove/{numero}")

@@ -29,10 +29,10 @@ public class ClienteService {
 		return repository.findById(clienteId).orElseThrow(()-> new ClienteNotFoundException(clienteId));
 	}
 	
-	public Long findByNombre(String nombre) {
-		Cliente cliente = repository.findByNombre(nombre).get(0);
-		Long id = cliente.getId();
-		return id;
+	public Long findByNombreAndApellido(String nombre, String apellido) {
+		Cliente cliente = repository.findByNombreAndApellido(nombre, apellido);
+		Long id_cliente = cliente.getId();
+		return id_cliente;
 
 	}
 	

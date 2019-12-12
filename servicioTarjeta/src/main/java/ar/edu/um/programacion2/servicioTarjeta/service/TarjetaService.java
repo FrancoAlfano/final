@@ -13,9 +13,7 @@ public class TarjetaService {
 	private ITarjetaRepository repository;
 
 
-	public Tarjeta findById(Long tarjetaId) {
-		
-		
+	public Tarjeta findById(Long tarjetaId) {		
 		return repository.findById(tarjetaId).orElseThrow(()-> new TarjetaNotFoundException(tarjetaId));
 	}
 

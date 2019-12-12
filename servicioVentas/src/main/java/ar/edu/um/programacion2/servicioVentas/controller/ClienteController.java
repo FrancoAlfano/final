@@ -33,15 +33,20 @@ public class ClienteController {
 		return new ResponseEntity<Cliente>(service.findById(clienteId), HttpStatus.OK);
 	}
 	
-	@GetMapping("/token/{nombre}")
-	public ResponseEntity<Long> findByNombre(@PathVariable String nombre){
-		return new ResponseEntity<Long>(service.findByNombre(nombre), HttpStatus.OK);
+	@PostMapping("/token")
+	public ResponseEntity<Object> token(@RequestBody Cliente cliente){
+		String nombre = cliente.getNombre();
+		String apellido = cliente.getApellido();
+	
+		return new ResponseEntity<Object>(service.findByNombreAndApellido(nombre, apellido), HttpStatus.OK);
 		
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<Cliente> add(@RequestBody Cliente cliente){
-		return new ResponseEntity<Cliente>(service.add(cliente), HttpStatus.OK);
+	public ResponseEntity<Object> add(@RequestBody Cliente cliente){
+		Cliente cli = service.add(cliente);
+		Long id_cliente = cli.getId();
+		return new ResponseEntity<Object>(id_cliente, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/remove/{numero}")

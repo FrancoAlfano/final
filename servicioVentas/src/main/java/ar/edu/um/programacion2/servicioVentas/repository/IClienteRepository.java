@@ -10,5 +10,5 @@ import ar.edu.um.programacion2.servicioVentas.model.Cliente;
 public interface IClienteRepository extends JpaRepository<Cliente, Long> {
 
 	public List<Cliente> findAllById(Long id);
-	public List<Cliente> findByNombre(String nombre);
+	public Cliente findByNombreAndApellido(String nombre, String apellido);
 }
