@@ -23,6 +23,7 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 	
+	
 	@GetMapping("/all")
 	public ResponseEntity<List<Cliente>> findAll(){
 		return new ResponseEntity<List<Cliente>>(service.findAll(), HttpStatus.OK);

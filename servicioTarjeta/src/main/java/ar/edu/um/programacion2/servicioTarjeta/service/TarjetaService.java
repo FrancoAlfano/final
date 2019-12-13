@@ -1,5 +1,7 @@
 package ar.edu.um.programacion2.servicioTarjeta.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,12 @@ import ar.edu.um.programacion2.servicioTarjeta.repository.ITarjetaRepository;
 public class TarjetaService {
 	@Autowired
 	private ITarjetaRepository repository;
+	
+	
+	public List<Tarjeta> findAll() {
+		
+		return repository.findAll();
+	}
 
 
 	public Tarjeta findById(Long tarjetaId) {		
