@@ -2,20 +2,12 @@ package ar.edu.um.programacion2.servicioTarjeta.controller;
 
 
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,9 +22,6 @@ import ar.edu.um.programacion2.servicioTarjeta.service.TarjetaService;
 public class TarjetaController {
 	@Autowired
 	private TarjetaService service;
-	
-	
-	
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<Tarjeta>> findAll(){
@@ -72,13 +61,7 @@ public class TarjetaController {
 	
 	@PostMapping("/monto")
 	public ResponseEntity<Object> findByIdAndMonto(@RequestBody Tarjeta tar){
-		CloseableHttpClient httpClient = HttpClients.custom()
-                .setSSLHostnameVerifier(new NoopHostnameVerifier())
-                .build();
-		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-		requestFactory.setHttpClient(httpClient);
-
-		
+	
 		Long tarjetaId = tar.getId();
 		Double monto = tar.getMonto();
 		JSONObject jo = new JSONObject();

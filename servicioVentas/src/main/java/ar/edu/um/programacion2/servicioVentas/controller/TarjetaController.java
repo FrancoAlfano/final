@@ -4,9 +4,6 @@ package ar.edu.um.programacion2.servicioVentas.controller;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.http.conn.ssl.NoopHostnameVerifier;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +11,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,19 +34,14 @@ public class TarjetaController {
 	RestTemplate restTemplate;
 	
 
-	String url = "http://localhost:8081/tarjeta/monto";
+	String url = "http://localhost:8081/tarjeta/find";
 	
 	
 	@PostMapping("/test")
 	public ResponseEntity<Object> test(@RequestBody Tarjeta tarjeta) {
-		CloseableHttpClient httpClient = HttpClients.custom()
-                .setSSLHostnameVerifier(new NoopHostnameVerifier())
-                .build();
-		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-		requestFactory.setHttpClient(httpClient);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
+		headers.add("user-agent", "");
 		HttpEntity<Tarjeta> entity = new HttpEntity<Tarjeta>(tarjeta,headers);
 		  
 		return restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
