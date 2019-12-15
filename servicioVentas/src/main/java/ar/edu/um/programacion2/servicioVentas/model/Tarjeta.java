@@ -35,7 +35,7 @@ public class Tarjeta implements Serializable{
 	private Date vencimiento;
 	
 	@Column(name = "monto")
-	private Double monto;
+	private Double monto = 5000.00;
 	
 	@Column(name = "numero")
 	private Long numero;

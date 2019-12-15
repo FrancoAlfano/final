@@ -37,8 +37,7 @@ public class ClienteController {
 	@PostMapping("/token")
 	public ResponseEntity<Object> token(@RequestBody Cliente cliente){
 		String nombre = cliente.getNombre();
-		String apellido = cliente.getApellido();
-	
+		String apellido = cliente.getApellido();	
 		return new ResponseEntity<Object>(service.findByNombreAndApellido(nombre, apellido), HttpStatus.OK);
 		
 	}

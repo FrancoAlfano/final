@@ -21,5 +21,5 @@ public class LogsController {
 	@PostMapping("/registro")
 	public ResponseEntity<Logs> add(@RequestBody Logs log){		
 		return new ResponseEntity<Logs>(service.add(log), HttpStatus.OK);
-		}
+	}
 }
