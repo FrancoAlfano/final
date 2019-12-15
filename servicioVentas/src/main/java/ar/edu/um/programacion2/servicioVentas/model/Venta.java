@@ -33,7 +33,7 @@ public class Venta implements Serializable{
 	private Long tarjeta_id;
 	
 	@Column(name = "monto")
-	private Long monto;
+	private Double monto;
 	
 	@Column(name = "fecha")
 	private Date fecha;

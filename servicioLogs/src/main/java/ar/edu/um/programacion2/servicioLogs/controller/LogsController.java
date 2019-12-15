@@ -22,4 +22,9 @@ public class LogsController {
 	public ResponseEntity<Logs> add(@RequestBody Logs log){		
 		return new ResponseEntity<Logs>(service.add(log), HttpStatus.OK);
 	}
+	
+	@PostMapping("/notfound")
+	public ResponseEntity<Logs> tarjetaNotFound(@RequestBody Logs log){
+		return new ResponseEntity<Logs>(service.tarjetaNotFound(log), HttpStatus.OK);
+	}
 }

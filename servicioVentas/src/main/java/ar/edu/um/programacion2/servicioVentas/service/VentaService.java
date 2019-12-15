@@ -2,7 +2,6 @@ package ar.edu.um.programacion2.servicioVentas.service;
 
 import java.util.Arrays;
 import java.util.List;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ar.edu.um.programacion2.servicioVentas.exception.VentaNotFoundException;
 import ar.edu.um.programacion2.servicioVentas.model.Logs;
+import ar.edu.um.programacion2.servicioVentas.model.Tarjeta;
 import ar.edu.um.programacion2.servicioVentas.model.Venta;
 import ar.edu.um.programacion2.servicioVentas.repository.IVentaRepository;
 
@@ -31,29 +31,46 @@ public class VentaService {
 	public ResponseEntity<Object> addLog(Venta venta){
 		Logs log = new Logs();
 		log.setId_venta(venta.getId());
-		log.setPaso("agregar tarjeta");
+		log.setPaso("agregar venta");
 		log.setResultado("OK");
-		log.setExplicacion("");
-		
-		JSONObject jo = new JSONObject();
-		jo.put("id_venta", venta.getId());
-		jo.put("paso", "agregar tarjeta");
-		jo.put("resultado", "OK");
-		jo.put("explicacion", "");
-		
+		log.setExplicacion("Tarjeta agregada exitosamente");		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<Object> entity = new HttpEntity<Object>(log,headers);
 		return restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
 	}
 
-	public List<Venta> findAll() {
-		
+	public List<Venta> findAll() {		
 		return repository.findAll();
+	}
+	
+	public ResponseEntity<Object> checkMonto(Tarjeta tarjeta){
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		HttpEntity<Object> entity = new HttpEntity<Object>(tarjeta,headers);
+		return restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
 	}
 	
 
 	public Venta add(Venta venta) {
+		String url1 = "http://localhost:8081/tarjeta/check";
+		Tarjeta tar = new Tarjeta();
+		tar.setId(venta.getTarjeta_id());
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		HttpEntity<Object> tarjetaEntity = new HttpEntity<Object>(tar,headers);
+		ResponseEntity<Tarjeta> result = restTemplate.exchange(url1, HttpMethod.POST, tarjetaEntity, Tarjeta.class);
+		
+		if (result == null) {
+			String url2 = "http://localhost:8082/logs/notfound";
+			Logs log = new Logs();
+			log.setId_venta(venta.getId());
+			HttpEntity<Logs> logEntity = new HttpEntity<Logs>(log,headers);
+			restTemplate.exchange(url2, HttpMethod.POST, logEntity, Logs.class);
+		}else {
+			addLog(venta);
+		}
+		
 		if (repository.save(venta) == null) {
 			return null;
 		}else {
@@ -62,8 +79,7 @@ public class VentaService {
 		}
 	}
 
-	public Venta findById(Long ventaId) {
-		
+	public Venta findById(Long ventaId) {		
 		return repository.findById(ventaId).orElseThrow(()-> new VentaNotFoundException(ventaId));
 	}
 
@@ -72,8 +88,7 @@ public class VentaService {
 		return null;
 	}
 
-	public Venta update(Venta newventa, Long ventaId) {
-		
+	public Venta update(Venta newventa, Long ventaId) {		
 		return repository.findById(ventaId).map(venta -> {
 			venta.setId(ventaId);
 			venta.setCliente_id(newventa.getCliente_id());

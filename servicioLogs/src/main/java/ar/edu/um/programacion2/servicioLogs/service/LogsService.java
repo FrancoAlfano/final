@@ -14,4 +14,11 @@ public class LogsService {
 		repository.save(log);
 		return log;
 	}
+	
+	public Logs tarjetaNotFound(Logs log) {
+		log.setExplicacion("tarjeta no existe");
+		log.setPaso("checkeo de tarjeta");
+		log.setResultado("fallo");
+		return repository.save(log);		
+	}
 }

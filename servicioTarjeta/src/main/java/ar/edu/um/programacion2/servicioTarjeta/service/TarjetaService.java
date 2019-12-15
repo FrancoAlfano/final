@@ -16,7 +16,11 @@ import ar.edu.um.programacion2.servicioTarjeta.repository.ITarjetaRepository;
 @Service
 public class TarjetaService {
 	@Autowired
-	private ITarjetaRepository repository;	
+	private ITarjetaRepository repository;
+	
+	public Tarjeta check(Tarjeta tarjeta) {
+		return repository.findById(tarjeta.getId()).orElseThrow(null);
+	}
 	
 	public List<Tarjeta> findAll() {		
 		return repository.findAll();
@@ -54,5 +58,7 @@ public class TarjetaService {
 			return new ResponseEntity<Object>(jo.toString(), HttpStatus.FORBIDDEN);
 		}
 	}
+
+	
 	
 }
