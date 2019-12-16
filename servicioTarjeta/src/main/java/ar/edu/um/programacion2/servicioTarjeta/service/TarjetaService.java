@@ -28,21 +28,28 @@ public class TarjetaService {
 	}
 	
 	public ResponseEntity<Object> checkTarjeta(Tarjeta t){
+		Double monto = t.getMonto();
+		String logSuccess = "http://localhost:8082/logs/tarjetaFound";			
+		String logFailure = "http://localhost:8082/logs/tarjetaNotFound";
+		String logMontoSuperado = "http://localhost:8082/logs/montoSuperado";
 		Optional<Tarjeta> tarjeta = findById(t.getId());
 		Logs log = new Logs();
+		Tarjeta tar = tarjeta.get();
 		if (tarjeta.isPresent() == true) {
-			String logSuccess = "http://localhost:8082/logs/tarjetaFound";
-			Tarjeta tar = tarjeta.get();
-			restTemplate.postForEntity(logSuccess, log, Object.class);
-			return new ResponseEntity<Object>(tar, HttpStatus.OK);
+			if (monto < 5000 && monto<= tar.getMonto()) {
+				restTemplate.postForEntity(logSuccess, log, Object.class);
+				return new ResponseEntity<Object>(tar, HttpStatus.OK);				
+			}else {
+				restTemplate.postForEntity(logMontoSuperado, log, Object.class);
+				return null;
+			}
 		}else {
-			String url2 = "http://localhost:8082/logs/tarjetaNotFound";
-			restTemplate.postForEntity(url2, log, Object.class);
+			restTemplate.postForEntity(logFailure, log, Object.class);
 			return null;
 		}
 	}
 	
-	public List<Tarjeta> findAll() {		
+	public List<Tarjeta> findAll() {
 		return repository.findAll();
 	}
 

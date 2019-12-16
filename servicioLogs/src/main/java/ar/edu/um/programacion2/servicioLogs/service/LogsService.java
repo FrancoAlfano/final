@@ -9,10 +9,18 @@ import ar.edu.um.programacion2.servicioLogs.repository.ILogsRepository;
 public class LogsService {
 	@Autowired
 	private ILogsRepository repository;
+	
 
 	public Logs add(Logs log) {
 		repository.save(log);
 		return log;
+	}
+	
+	public Logs montoSuperado(Logs log) {
+		log.setExplicacion("Monto máximo superado");
+		log.setPaso("verificacion de monto");
+		log.setResultado("FALLO");
+		return repository.save(log);	
 	}
 	
 	public Logs tarjetaFound(Logs log) {

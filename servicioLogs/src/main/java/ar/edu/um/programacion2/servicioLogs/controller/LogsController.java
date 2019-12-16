@@ -31,6 +31,10 @@ public class LogsController {
 	public ResponseEntity<Logs> tarjetaNotFound(@RequestBody Logs log){
 		return new ResponseEntity<Logs>(service.tarjetaNotFound(log), HttpStatus.OK);
 	}
+	@PostMapping("/montoSuperado")
+	public ResponseEntity<Logs> montoSuperado(@RequestBody Logs log){
+		return new ResponseEntity<Logs>(service.montoSuperado(log), HttpStatus.OK);
+	}
 	
 	@PostMapping("/ventaSuccess")
 	public ResponseEntity<Logs> ventaSuccess(@RequestBody Logs log){
