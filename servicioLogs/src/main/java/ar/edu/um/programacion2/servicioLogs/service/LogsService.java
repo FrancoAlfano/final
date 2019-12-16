@@ -15,10 +15,17 @@ public class LogsService {
 		return log;
 	}
 	
+	public Logs tarjetaFound(Logs log) {
+		log.setExplicacion("tarjeta encontrada!");
+		log.setPaso("checkeo de tarjeta");
+		log.setResultado("OK");
+		return repository.save(log);	
+	}
+	
 	public Logs tarjetaNotFound(Logs log) {
 		log.setExplicacion("tarjeta no existe");
 		log.setPaso("checkeo de tarjeta");
-		log.setResultado("fallo");
+		log.setResultado("FALLO");
 		return repository.save(log);		
 	}
 	

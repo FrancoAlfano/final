@@ -17,13 +17,17 @@ public class LogsController {
 	@Autowired
 	private LogsService service;
 	
+	@PostMapping("/tarjetaFound")
+	public ResponseEntity<Logs> tarjetaFound(@RequestBody Logs log){		
+		return new ResponseEntity<Logs>(service.tarjetaFound(log), HttpStatus.OK);
+	}	
 
 	@PostMapping("/registro")
 	public ResponseEntity<Logs> add(@RequestBody Logs log){		
 		return new ResponseEntity<Logs>(service.add(log), HttpStatus.OK);
 	}
 	
-	@PostMapping("/notfound")
+	@PostMapping("/tarjetaNotFound")
 	public ResponseEntity<Logs> tarjetaNotFound(@RequestBody Logs log){
 		return new ResponseEntity<Logs>(service.tarjetaNotFound(log), HttpStatus.OK);
 	}

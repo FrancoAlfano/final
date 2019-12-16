@@ -26,9 +26,9 @@ public class TarjetaController {
 		return new ResponseEntity<List<Tarjeta>>(service.findAll(), HttpStatus.OK);
 	}
 	
-	@PostMapping("/check")
-	public Tarjeta check (@RequestBody Tarjeta tarjeta) {
-		return service.check(tarjeta);
+	@PostMapping("/checkTarjeta")
+	public ResponseEntity<Object> checkTarjeta (@RequestBody Tarjeta tarjeta) {
+		return service.checkTarjeta(tarjeta);
 	}
 	
 

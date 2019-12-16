@@ -1,12 +1,7 @@
 package ar.edu.um.programacion2.servicioVentas.service;
 
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -29,28 +24,21 @@ public class VentaService {
 	}
 
 	public Venta add(Venta venta) {
-		String url1 = "http://localhost:8081/tarjeta/check";
+		String url1 = "http://localhost:8081/tarjeta/checkTarjeta";
 		Tarjeta tar = new Tarjeta();
-		tar.setId(venta.getTarjeta_id());
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<Object> tarjetaEntity = new HttpEntity<Object>(tar,headers);
-		ResponseEntity<Object> result1 = restTemplate.exchange(url1, HttpMethod.POST, tarjetaEntity, Object.class);
 		Logs log = new Logs();
-		Venta v = repository.save(venta);
-		log.setId_venta(v.getId());
-		
-		if (result1 == null) {
-			String url2 = "http://localhost:8082/logs/notfound";
-			HttpEntity<Logs> notfoundEntity = new HttpEntity<Logs>(log,headers);
-			restTemplate.exchange(url2, HttpMethod.POST, notfoundEntity, Logs.class);
+		tar.setId(venta.getTarjeta_id());
+		tar.setMonto(venta.getMonto());
+		ResponseEntity<Object> re = restTemplate.postForEntity(url1, tar, Object.class);
+		if (re.getBody() == null) {
 			return null;
 		}else {
+			Venta v = repository.save(venta);
+			log.setId_venta(v.getId());
 			String url3 = "http://localhost:8082/logs/ventaSuccess";
-			HttpEntity<Logs> successEntity = new HttpEntity<Logs>(log,headers);
-			restTemplate.exchange(url3, HttpMethod.POST, successEntity, Logs.class);
+			restTemplate.postForEntity(url3, log, Object.class);
+			return v;
 		}
-		return v;
 	}
 	
 	

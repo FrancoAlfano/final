@@ -2,14 +2,16 @@ package ar.edu.um.programacion2.servicioTarjeta.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import ar.edu.um.programacion2.servicioTarjeta.exception.TarjetaNotFoundException;
+import ar.edu.um.programacion2.servicioTarjeta.model.Logs;
 import ar.edu.um.programacion2.servicioTarjeta.model.Tarjeta;
 import ar.edu.um.programacion2.servicioTarjeta.repository.ITarjetaRepository;
 
@@ -18,8 +20,26 @@ public class TarjetaService {
 	@Autowired
 	private ITarjetaRepository repository;
 	
-	public Tarjeta check(Tarjeta tarjeta) {
-		return repository.findById(tarjeta.getId()).orElseThrow(null);
+	@Autowired
+	RestTemplate restTemplate;
+	
+	public Optional<Tarjeta> findById(Long tarjeta_id) {
+		return repository.findById(tarjeta_id);
+	}
+	
+	public ResponseEntity<Object> checkTarjeta(Tarjeta t){
+		Optional<Tarjeta> tarjeta = findById(t.getId());
+		Logs log = new Logs();
+		if (tarjeta.isPresent() == true) {
+			String logSuccess = "http://localhost:8082/logs/tarjetaFound";
+			Tarjeta tar = tarjeta.get();
+			restTemplate.postForEntity(logSuccess, log, Object.class);
+			return new ResponseEntity<Object>(tar, HttpStatus.OK);
+		}else {
+			String url2 = "http://localhost:8082/logs/tarjetaNotFound";
+			restTemplate.postForEntity(url2, log, Object.class);
+			return null;
+		}
 	}
 	
 	public List<Tarjeta> findAll() {		
@@ -29,8 +49,9 @@ public class TarjetaService {
 	public ResponseEntity<Object> token(Long tarjetaId) {		
 		JSONObject jo = new JSONObject();
 		JSONObject jo2 = new JSONObject();		
-		Tarjeta tar = repository.findById(tarjetaId).orElseThrow(()-> new TarjetaNotFoundException(tarjetaId));			
-		if (tar != null) {
+		Optional<Tarjeta> tarjeta = repository.findById(tarjetaId);			
+		if (tarjeta.isPresent() == true) {
+			Tarjeta tar = tarjeta.get();
 			Date ven = tar.getVencimiento();
 			Date today = new Date();			
 			if (ven.before(today)) {
