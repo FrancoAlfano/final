@@ -27,19 +27,6 @@ public class VentaService {
 
 	String url = "http://localhost:8082/logs/registro";
 
-	
-	public ResponseEntity<Object> addLog(Venta venta){
-		Logs log = new Logs();
-		log.setId_venta(venta.getId());
-		log.setPaso("agregar venta");
-		log.setResultado("OK");
-		log.setExplicacion("Tarjeta agregada exitosamente");		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<Object> entity = new HttpEntity<Object>(log,headers);
-		return restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
-	}
-
 	public List<Venta> findAll() {		
 		return repository.findAll();
 	}
@@ -59,26 +46,26 @@ public class VentaService {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<Object> tarjetaEntity = new HttpEntity<Object>(tar,headers);
-		ResponseEntity<Tarjeta> result = restTemplate.exchange(url1, HttpMethod.POST, tarjetaEntity, Tarjeta.class);
+		ResponseEntity<Object> result1 = restTemplate.exchange(url1, HttpMethod.POST, tarjetaEntity, Object.class);
+		Logs log = new Logs();
+		Venta v = repository.save(venta);
+		log.setId_venta(v.getId());
 		
-		if (result == null) {
+		if (result1 == null) {
 			String url2 = "http://localhost:8082/logs/notfound";
-			Logs log = new Logs();
-			log.setId_venta(venta.getId());
-			HttpEntity<Logs> logEntity = new HttpEntity<Logs>(log,headers);
-			restTemplate.exchange(url2, HttpMethod.POST, logEntity, Logs.class);
-		}else {
-			addLog(venta);
-		}
-		
-		if (repository.save(venta) == null) {
+			HttpEntity<Logs> notfoundEntity = new HttpEntity<Logs>(log,headers);
+			restTemplate.exchange(url2, HttpMethod.POST, notfoundEntity, Logs.class);
 			return null;
 		}else {
-			addLog(venta);
-			return venta;
+			String url3 = "http://localhost:8082/logs/ventaSuccess";
+			HttpEntity<Logs> successEntity = new HttpEntity<Logs>(log,headers);
+			restTemplate.exchange(url3, HttpMethod.POST, successEntity, Logs.class);
 		}
+		return v;
 	}
 
+	
+	
 	public Venta findById(Long ventaId) {		
 		return repository.findById(ventaId).orElseThrow(()-> new VentaNotFoundException(ventaId));
 	}

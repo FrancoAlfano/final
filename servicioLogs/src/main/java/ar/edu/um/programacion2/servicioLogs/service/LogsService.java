@@ -21,4 +21,11 @@ public class LogsService {
 		log.setResultado("fallo");
 		return repository.save(log);		
 	}
+	
+	public Logs ventaSuccess(Logs log) {
+		log.setExplicacion("Venta exitosa");
+		log.setPaso("Venta");
+		log.setResultado("OK");
+		return repository.save(log);
+	}
 }
