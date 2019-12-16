@@ -23,21 +23,10 @@ public class VentaService {
 	
 	@Autowired
 	RestTemplate restTemplate;
-	
-
-	String url = "http://localhost:8082/logs/registro";
 
 	public List<Venta> findAll() {		
 		return repository.findAll();
 	}
-	
-	public ResponseEntity<Object> checkMonto(Tarjeta tarjeta){
-		HttpHeaders headers = new HttpHeaders();
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<Object> entity = new HttpEntity<Object>(tarjeta,headers);
-		return restTemplate.exchange(url, HttpMethod.POST, entity, Object.class);
-	}
-	
 
 	public Venta add(Venta venta) {
 		String url1 = "http://localhost:8081/tarjeta/check";
@@ -63,7 +52,6 @@ public class VentaService {
 		}
 		return v;
 	}
-
 	
 	
 	public Venta findById(Long ventaId) {		
