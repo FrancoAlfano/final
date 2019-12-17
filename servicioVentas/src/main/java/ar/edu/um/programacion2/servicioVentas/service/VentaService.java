@@ -24,19 +24,19 @@ public class VentaService {
 	}
 
 	public Venta add(Venta venta) {
-		String url1 = "http://localhost:8081/tarjeta/checkTarjeta";
+		String checkTarjeta = "http://localhost:8081/tarjeta/checkTarjeta";
 		Tarjeta tar = new Tarjeta();
 		Logs log = new Logs();
 		tar.setId(venta.getTarjeta_id());
 		tar.setMonto(venta.getMonto());
-		ResponseEntity<Object> re = restTemplate.postForEntity(url1, tar, Object.class);
+		ResponseEntity<Object> re = restTemplate.postForEntity(checkTarjeta, tar, Object.class);
 		if (re.getBody() == null) {
 			return null;
 		}else {
 			Venta v = repository.save(venta);
 			log.setId_venta(v.getId());
-			String url3 = "http://localhost:8082/logs/ventaSuccess";
-			restTemplate.postForEntity(url3, log, Object.class);
+			String ventaSuccess = "http://localhost:8082/logs/ventaSuccess";
+			restTemplate.postForEntity(ventaSuccess, log, Object.class);
 			return v;
 		}
 	}
