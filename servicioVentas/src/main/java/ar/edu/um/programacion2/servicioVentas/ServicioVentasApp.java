@@ -16,6 +16,4 @@ public class ServicioVentasApp {
 	public static void main(String[] args) {
 		SpringApplication.run(ServicioVentasApp.class, args);
 	}
-	
-
 }

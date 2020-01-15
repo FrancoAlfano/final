@@ -40,4 +40,5 @@ public class LogsController {
 	public ResponseEntity<Logs> ventaSuccess(@RequestBody Logs log){
 		return new ResponseEntity<>(service.ventaSuccess(log), HttpStatus.OK);
 	}
+	
 }

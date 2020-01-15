@@ -16,5 +16,4 @@ public class ServicioTarjetaApp {
 	public static void main(String[] args) {
 		SpringApplication.run(ServicioTarjetaApp.class, args);
 	}
-
 }
