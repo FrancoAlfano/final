@@ -36,7 +36,7 @@ public class TarjetaService {
 		Logs log = new Logs();
 		Tarjeta tar = tarjeta.get();
 		if (tarjeta.isPresent() == true) {
-			if (monto < 5000 && monto<= tar.getMonto()) {
+			if (monto <= 5000 && monto<= tar.getMonto()) {
 				restTemplate.postForEntity(logSuccess, log, Object.class);
 				return new ResponseEntity<Object>(tar, HttpStatus.OK);				
 			}else {
