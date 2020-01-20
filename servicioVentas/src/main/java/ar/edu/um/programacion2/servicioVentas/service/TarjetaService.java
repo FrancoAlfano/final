@@ -47,7 +47,4 @@ public class TarjetaService {
 			return repository.save(tarjeta);
 		}).orElseThrow(() -> new TarjetaNotFoundException(tarjetaId));
 	}
-
-
-
 }
