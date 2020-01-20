@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-tarjeta-heading" jhiTranslate="servicioventasjhApp.tarjeta.home.createOrEditLabel">Create or edit a Tarjeta</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="servicioventasjhApp.tarjeta.tarjeta_id" for="field_tarjeta_id">Tarjeta Id</label>
+                    <input type="number" class="form-control" name="tarjeta_id" id="field_tarjeta_id"
+                           formControlName="tarjeta_id"/>
+                    <div *ngIf="editForm.get('tarjeta_id').invalid && (editForm.get('tarjeta_id').dirty || editForm.get('tarjeta_id').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('tarjeta_id').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('tarjeta_id')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="servicioventasjhApp.tarjeta.cod_seguridad" for="field_cod_seguridad">Cod Seguridad</label>
+                    <input type="number" class="form-control" name="cod_seguridad" id="field_cod_seguridad"
+                           formControlName="cod_seguridad"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="servicioventasjhApp.tarjeta.vencimiento" for="field_vencimiento">Vencimiento</label>
+                    <div class="input-group">
+                        <input id="field_vencimiento" type="text" class="form-control" name="vencimiento" ngbDatepicker  #vencimientoDp="ngbDatepicker" formControlName="vencimiento"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="vencimientoDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="servicioventasjhApp.tarjeta.monto" for="field_monto">Monto</label>
+                    <input type="number" class="form-control" name="monto" id="field_monto"
+                           formControlName="monto"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="servicioventasjhApp.tarjeta.numero" for="field_numero">Numero</label>
+                    <input type="number" class="form-control" name="numero" id="field_numero"
+                           formControlName="numero"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="servicioventasjhApp.tarjeta.tipo" for="field_tipo">Tipo</label>
+                    <input type="text" class="form-control" name="tipo" id="field_tipo"
+                           formControlName="tipo"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="servicioventasjhApp.tarjeta.cliente" for="field_cliente">Cliente</label>
+                    <select class="form-control" id="field_cliente" name="cliente" formControlName="cliente">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="clienteOption.id === editForm.get('cliente').value?.id ? editForm.get('cliente').value : clienteOption" *ngFor="let clienteOption of clientes; trackBy: trackClienteById">{{clienteOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="tarjeta">
+            <h2><span jhiTranslate="servicioventasjhApp.tarjeta.detail.title">Tarjeta</span> {{tarjeta.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="servicioventasjhApp.tarjeta.tarjeta_id">Tarjeta Id</span></dt>
+                <dd>
+                    <span>{{tarjeta.tarjeta_id}}</span>
+                </dd>
+                <dt><span jhiTranslate="servicioventasjhApp.tarjeta.cod_seguridad">Cod Seguridad</span></dt>
+                <dd>
+                    <span>{{tarjeta.cod_seguridad}}</span>
+                </dd>
+                <dt><span jhiTranslate="servicioventasjhApp.tarjeta.vencimiento">Vencimiento</span></dt>
+                <dd>
+                    <span>{{tarjeta.vencimiento}}</span>
+                </dd>
+                <dt><span jhiTranslate="servicioventasjhApp.tarjeta.monto">Monto</span></dt>
+                <dd>
+                    <span>{{tarjeta.monto}}</span>
+                </dd>
+                <dt><span jhiTranslate="servicioventasjhApp.tarjeta.numero">Numero</span></dt>
+                <dd>
+                    <span>{{tarjeta.numero}}</span>
+                </dd>
+                <dt><span jhiTranslate="servicioventasjhApp.tarjeta.tipo">Tipo</span></dt>
+                <dd>
+                    <span>{{tarjeta.tipo}}</span>
+                </dd>
+                <dt><span jhiTranslate="servicioventasjhApp.tarjeta.cliente">Cliente</span></dt>
+                <dd>
+                    <div *ngIf="tarjeta.cliente">
+                        <a [routerLink]="['/cliente', tarjeta.cliente?.id, 'view']">{{tarjeta.cliente?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/tarjeta', tarjeta.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
