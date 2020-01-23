@@ -28,7 +28,6 @@ public class TarjetaService {
 	
 	public ResponseEntity<Object> find(Long tarjeta_id) {
 		Optional<Tarjeta> tar;
-		Tarjeta tarjeta = new Tarjeta();
 		try {
 			tar = repository.findById(tarjeta_id);
 		} catch (EntityNotFoundException e){
@@ -50,8 +49,11 @@ public class TarjetaService {
 		Logs log = new Logs();
 		Tarjeta tar = tarjeta.get();
 		if (tarjeta.isPresent() == true) {
-			if (monto <= 5000 && monto<= tar.getMonto()) {
-				restTemplate.postForEntity(logSuccess, log, Object.class);
+			restTemplate.postForEntity(logSuccess, log, Object.class);
+			if (monto < 5000) {
+				return new ResponseEntity<Object>(tar, HttpStatus.OK);
+			}else if (monto<= tar.getMonto()) {
+				
 				return new ResponseEntity<Object>(tar, HttpStatus.OK);				
 			}else {
 				restTemplate.postForEntity(logMontoSuperado, log, Object.class);
