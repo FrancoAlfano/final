@@ -23,9 +23,8 @@ public class VentaService {
 		return repository.findAll();
 	}
 
-	public Venta add(Venta venta) {
-		
-		//sends to servicioTarjeta TarjetaController
+	public Venta add(Venta venta) {		
+		//sends to servicioTarjeta -> TarjetaController
 		String checkTarjeta = "http://localhost:8081/tarjeta/checkTarjeta";
 		Tarjeta tar = new Tarjeta();
 		Logs log = new Logs();

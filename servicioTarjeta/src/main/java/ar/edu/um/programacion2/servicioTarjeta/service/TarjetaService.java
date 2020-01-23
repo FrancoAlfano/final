@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import ar.edu.um.programacion2.servicioTarjeta.exception.TarjetaNotFoundException;
 import ar.edu.um.programacion2.servicioTarjeta.model.Logs;
 import ar.edu.um.programacion2.servicioTarjeta.model.Tarjeta;
 import ar.edu.um.programacion2.servicioTarjeta.repository.ITarjetaRepository;
@@ -22,6 +25,17 @@ public class TarjetaService {
 	
 	@Autowired
 	RestTemplate restTemplate;
+	
+	public ResponseEntity<Object> find(Long tarjeta_id) {
+		Optional<Tarjeta> tar;
+		Tarjeta tarjeta = new Tarjeta();
+		try {
+			tar = repository.findById(tarjeta_id);
+		} catch (EntityNotFoundException e){
+			throw new TarjetaNotFoundException(tarjeta_id);
+		}
+		return new ResponseEntity<Object>(tar, HttpStatus.OK);
+	}
 	
 	public Optional<Tarjeta> findById(Long tarjeta_id) {
 		return repository.findById(tarjeta_id);
@@ -86,6 +100,8 @@ public class TarjetaService {
 			return new ResponseEntity<Object>(jo.toString(), HttpStatus.FORBIDDEN);
 		}
 	}
+
+
 
 	
 	
