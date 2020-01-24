@@ -32,7 +32,6 @@ public class TarjetaController {
 		return new ResponseEntity<List<Tarjeta>>(service.findAll(), HttpStatus.OK);
 	}
 	
-	
 	@PostMapping("/checkTarjeta")
 	public ResponseEntity<Object> checkTarjeta (@RequestBody Tarjeta tarjeta) {
 		return service.checkTarjeta(tarjeta);

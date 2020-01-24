@@ -3,9 +3,6 @@ package ar.edu.um.programacion2.servicioTarjeta.service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
-import javax.persistence.EntityNotFoundException;
-
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,17 +24,20 @@ public class TarjetaService {
 	RestTemplate restTemplate;
 	
 	public ResponseEntity<Object> find(Long tarjeta_id) {
-		Optional<Tarjeta> tar;
+		Tarjeta tar;
 		try {
-			tar = repository.findById(tarjeta_id);
-		} catch (EntityNotFoundException e){
-			throw new TarjetaNotFoundException(tarjeta_id);
+			tar = repository.findById(tarjeta_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
+		} catch (TarjetaNotFoundException e){
+			JSONObject jo = new JSONObject();
+			jo.put("codError", "20");
+			jo.put("error", "No existe tarjeta");
+			return new ResponseEntity<Object>(jo.toString(), HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Object>(tar, HttpStatus.OK);
 	}
 	
-	public Optional<Tarjeta> findById(Long tarjeta_id) {
-		return repository.findById(tarjeta_id);
+	public Tarjeta findById(Long tarjeta_id) {
+		return repository.findById(tarjeta_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
 	}
 	
 	public ResponseEntity<Object> checkTarjeta(Tarjeta t){
@@ -45,7 +45,7 @@ public class TarjetaService {
 		String logSuccess = "http://localhost:8082/logs/tarjetaFound";			
 		String logFailure = "http://localhost:8082/logs/tarjetaNotFound";
 		String logMontoSuperado = "http://localhost:8082/logs/montoSuperado";
-		Optional<Tarjeta> tarjeta = findById(t.getId());
+		Optional<Tarjeta> tarjeta = repository.findById(t.getId());
 		Logs log = new Logs();
 		Tarjeta tar = tarjeta.get();
 		if (tarjeta.isPresent() == true) {
@@ -71,8 +71,8 @@ public class TarjetaService {
 
 	public ResponseEntity<Object> token(Long tarjetaId) {		
 		JSONObject jo = new JSONObject();
-		JSONObject jo2 = new JSONObject();		
-		Optional<Tarjeta> tarjeta = repository.findById(tarjetaId);			
+		JSONObject jo2 = new JSONObject();
+		Optional<Tarjeta> tarjeta = repository.findById(tarjetaId);
 		if (tarjeta.isPresent() == true) {
 			Tarjeta tar = tarjeta.get();
 			Date ven = tar.getVencimiento();
