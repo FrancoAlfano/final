@@ -23,15 +23,16 @@ public class TarjetaService {
 	@Autowired
 	RestTemplate restTemplate;
 	
-	public ResponseEntity<Object> find(Long tarjeta_id) {
+	public ResponseEntity<Object> find(Tarjeta t) {
+		Logs log = new Logs();
+		String logFailure = "http://localhost:8082/logs/tarjetaNotFound";
+		Long tarjeta_id = t.getId();
 		Tarjeta tar;
 		try {
 			tar = repository.findById(tarjeta_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
 		} catch (TarjetaNotFoundException e){
-			JSONObject jo = new JSONObject();
-			jo.put("codError", "20");
-			jo.put("error", "No existe tarjeta");
-			return new ResponseEntity<Object>(jo.toString(), HttpStatus.NOT_FOUND);
+			restTemplate.postForEntity(logFailure, log, Object.class);
+			return null;
 		}
 		return new ResponseEntity<Object>(tar, HttpStatus.OK);
 	}
@@ -43,7 +44,6 @@ public class TarjetaService {
 	public ResponseEntity<Object> checkTarjeta(Tarjeta t){
 		Double monto = t.getMonto();
 		String logSuccess = "http://localhost:8082/logs/tarjetaFound";			
-		String logFailure = "http://localhost:8082/logs/tarjetaNotFound";
 		String logMontoSuperado = "http://localhost:8082/logs/montoSuperado";
 		Optional<Tarjeta> tarjeta = repository.findById(t.getId());
 		Logs log = new Logs();
@@ -60,7 +60,6 @@ public class TarjetaService {
 				return null;
 			}
 		}else {
-			restTemplate.postForEntity(logFailure, log, Object.class);
 			return null;
 		}
 	}

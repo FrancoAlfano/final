@@ -1,7 +1,10 @@
 package ar.edu.um.programacion2.servicioVentas.service;
 
 import java.util.List;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,13 +26,18 @@ public class VentaService {
 		return repository.findAll();
 	}
 
-	public Venta add(Venta venta) {		
+	public ResponseEntity<Object> add(Venta venta) {		
 		//sends to servicioTarjeta -> TarjetaController
+		String findTarjeta = "http://localhost:8081/tarjeta/findTarjeta";
 		String checkTarjeta = "http://localhost:8081/tarjeta/checkTarjeta";
 		Tarjeta tar = new Tarjeta();
 		Logs log = new Logs();
 		tar.setId(venta.getTarjeta_id());
 		tar.setMonto(venta.getMonto());
+		ResponseEntity<Object> re1 = restTemplate.postForEntity(findTarjeta, tar, Object.class);
+		if (re1.getBody() == null) {
+			return null;
+		}
 		ResponseEntity<Object> re = restTemplate.postForEntity(checkTarjeta, tar, Object.class);
 		if (re.getBody() == null) {
 			return null;
@@ -38,7 +46,7 @@ public class VentaService {
 			log.setId_venta(v.getId());
 			String ventaSuccess = "http://localhost:8082/logs/ventaSuccess";
 			restTemplate.postForEntity(ventaSuccess, log, Object.class);
-			return v;
+			return new ResponseEntity<Object>(v, HttpStatus.CREATED);
 		}
 	}
 	
