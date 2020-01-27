@@ -31,8 +31,8 @@ public class TarjetaService {
 		try {
 			tar = repository.findById(tarjeta_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
 		} catch (TarjetaNotFoundException e){
-			restTemplate.postForEntity(logFailure, log, Object.class);
-			return null;
+			ResponseEntity<Object> r1 = restTemplate.postForEntity(logFailure, log, Object.class);
+			return r1;
 		}
 		return new ResponseEntity<Object>(tar, HttpStatus.OK);
 	}
