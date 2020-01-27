@@ -34,9 +34,8 @@ public class VentaController {
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<Venta> add(@RequestBody Venta venta){
-		service.add(venta);
-		return new ResponseEntity<Venta>(venta, HttpStatus.OK);
+	public ResponseEntity<Object> add(@RequestBody Venta venta){
+		return new ResponseEntity<Object>(service.add(venta), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/remove/{numero}")

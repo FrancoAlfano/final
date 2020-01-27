@@ -1,5 +1,6 @@
 package ar.edu.um.programacion2.servicioVentas.service;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +28,19 @@ public class VentaService {
 
 	public ResponseEntity<Object> add(Venta venta) {		
 		//sends to servicioTarjeta -> TarjetaController
-		String findTarjeta = "http://localhost:8081/tarjeta/findTarjeta";
+		String findTarjeta = "http://localhost:8081/tarjeta/find";
 		String checkTarjeta = "http://localhost:8081/tarjeta/checkTarjeta";
 		Tarjeta tar = new Tarjeta();
 		Logs log = new Logs();
 		tar.setId(venta.getTarjeta_id());
 		tar.setMonto(venta.getMonto());
 		ResponseEntity<Object> re1 = restTemplate.postForEntity(findTarjeta, tar, Object.class);
-		if (re1.getBody() == null) {
-			return null;
+		System.out.println("HERE");
+		System.out.println("EL BODY DE R1 EN VS ES "+re1.getBody());
+		if (re1.getBody().getClass() == LinkedHashMap.class) {
+			ResponseEntity<Object> r2 = new ResponseEntity<Object>(re1.getBody(),HttpStatus.NOT_FOUND);
+			System.out.println("R2 TIENE: "+r2.getBody());
+			return r2;
 		}
 		ResponseEntity<Object> re = restTemplate.postForEntity(checkTarjeta, tar, Object.class);
 		if (re.getBody() == null) {

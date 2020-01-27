@@ -21,7 +21,7 @@ public class TarjetaController {
 	@Autowired
 	private TarjetaService service;
 	
-	@PostMapping("/findTarjeta")
+	@PostMapping("/find")
 	public ResponseEntity<Object> find(@RequestBody Tarjeta tarjeta_id){
 		return service.find(tarjeta_id);
 	}
