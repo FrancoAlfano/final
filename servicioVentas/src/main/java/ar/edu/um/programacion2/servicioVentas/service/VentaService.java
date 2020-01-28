@@ -30,6 +30,13 @@ public class VentaService {
 	public List<Venta> findAll() {		
 		return repository.findAll();
 	}
+	
+	/*
+	ahora tengo que cambiar el try catch a servicio Ventas para que el llame a todo lo que se tenga que llamar, en vez de 
+	nestearlo, y ahi borrar lo unused code.
+	
+	
+	*/
 
 	public ResponseEntity<Object> add(Venta venta) {		
 		//sends to servicioTarjeta -> TarjetaController

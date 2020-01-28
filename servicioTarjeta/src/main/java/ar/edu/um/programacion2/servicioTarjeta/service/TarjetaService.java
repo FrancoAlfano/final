@@ -22,7 +22,7 @@ public class TarjetaService {
 	
 	@Autowired
 	RestTemplate restTemplate;
-	
+
 	public ResponseEntity<Object> find(Tarjeta t) throws TarjetaNotFoundException{
 		Logs log = new Logs();
 		String logFailure = "http://localhost:8082/logs/tarjetaNotFound";
