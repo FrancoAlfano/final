@@ -23,7 +23,7 @@ public class TarjetaService {
 	@Autowired
 	RestTemplate restTemplate;
 	
-	public ResponseEntity<Object> find(Tarjeta t) {
+	public ResponseEntity<Object> find(Tarjeta t) throws TarjetaNotFoundException{
 		Logs log = new Logs();
 		String logFailure = "http://localhost:8082/logs/tarjetaNotFound";
 		Long tarjeta_id = t.getId();
@@ -32,7 +32,7 @@ public class TarjetaService {
 			tar = repository.findById(tarjeta_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
 		} catch (TarjetaNotFoundException e){
 			ResponseEntity<Object> r1 = restTemplate.postForEntity(logFailure, log, Object.class);
-			return r1;
+			return new ResponseEntity<Object>(r1.getBody(), HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Object>(tar, HttpStatus.OK);
 	}

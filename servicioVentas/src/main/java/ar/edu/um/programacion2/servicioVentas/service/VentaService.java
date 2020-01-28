@@ -4,15 +4,20 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import ar.edu.um.programacion2.servicioVentas.exception.TarjetaNotFoundException;
 import ar.edu.um.programacion2.servicioVentas.exception.VentaNotFoundException;
 import ar.edu.um.programacion2.servicioVentas.model.Logs;
 import ar.edu.um.programacion2.servicioVentas.model.Tarjeta;
 import ar.edu.um.programacion2.servicioVentas.model.Venta;
 import ar.edu.um.programacion2.servicioVentas.repository.IVentaRepository;
+import javassist.NotFoundException;
 
 @Service
 public class VentaService {
@@ -34,14 +39,13 @@ public class VentaService {
 		Logs log = new Logs();
 		tar.setId(venta.getTarjeta_id());
 		tar.setMonto(venta.getMonto());
-		ResponseEntity<Object> re1 = restTemplate.postForEntity(findTarjeta, tar, Object.class);
-		System.out.println("HERE");
-		System.out.println("EL BODY DE R1 EN VS ES "+re1.getBody());
-		if (re1.getBody().getClass() == LinkedHashMap.class) {
-			ResponseEntity<Object> r2 = new ResponseEntity<Object>(re1.getBody(),HttpStatus.NOT_FOUND);
-			System.out.println("R2 TIENE: "+r2.getBody());
-			return r2;
+		try {
+			ResponseEntity<Object> re1 = restTemplate.postForEntity(findTarjeta, tar, Object.class);
+		}catch (HttpClientErrorException e) {
+			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 		}
+		System.out.println("WE ARE HEERRRRRREEEEEEEEE 2");
+
 		ResponseEntity<Object> re = restTemplate.postForEntity(checkTarjeta, tar, Object.class);
 		if (re.getBody() == null) {
 			return null;
