@@ -26,25 +26,19 @@ public class TarjetaController {
 		return service.find(tarjeta_id);
 	}
 	
+	@PostMapping("/checkMonto")
+	public ResponseEntity<Object> checkMonto(@RequestBody Tarjeta tarjeta){
+		return service.checkMonto(tarjeta);
+	}
+	
 	@GetMapping("/all")
 	public ResponseEntity<List<Tarjeta>> findAll(){
 		return new ResponseEntity<List<Tarjeta>>(service.findAll(), HttpStatus.OK);
 	}
-	
-	@PostMapping("/checkTarjeta")
-	public ResponseEntity<Object> checkTarjeta (@RequestBody Tarjeta tarjeta) {
-		return service.checkTarjeta(tarjeta);
-	}
-	
 
-	@PostMapping("/token")
-	public ResponseEntity<Object> token(@RequestBody Tarjeta tar){
-		return service.token(tar.getId());
+	@PostMapping("/checkVencimiento")
+	public ResponseEntity<Object> checkVencimiento(@RequestBody Tarjeta tar){
+		return service.checkVencimiento(tar.getId());
 	}
 
-	
-	@PostMapping("/monto")
-	public ResponseEntity<Object> monto(@RequestBody Tarjeta tar){
-		return service.monto(tar.getId(), tar.getMonto());		
-	}
 }

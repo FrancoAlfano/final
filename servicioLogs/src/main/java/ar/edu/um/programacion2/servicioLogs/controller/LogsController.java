@@ -17,6 +17,11 @@ public class LogsController {
 	@Autowired
 	private LogsService service;
 	
+	@PostMapping("/tarjetaExpirada")
+	public ResponseEntity<Logs> tarjetaExpirada(@RequestBody Logs log){
+		return new ResponseEntity<Logs>(service.tarjetaExpirada(log), HttpStatus.OK);
+	}
+	
 	@PostMapping("/tarjetaFound")
 	public ResponseEntity<Logs> tarjetaFound(@RequestBody Logs log){		
 		return new ResponseEntity<Logs>(service.tarjetaFound(log), HttpStatus.OK);

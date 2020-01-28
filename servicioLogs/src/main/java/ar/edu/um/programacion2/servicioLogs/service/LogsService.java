@@ -16,6 +16,13 @@ public class LogsService {
 		return log;
 	}
 	
+	public Logs tarjetaExpirada(Logs log) {
+		log.setExplicacion("Tarjeta Vencida");
+		log.setPaso("Checkeo de vencimiento");
+		log.setResultado("FALLO");
+		return repository.save(log);
+	}
+	
 	public Logs montoSuperado(Logs log) {
 		log.setExplicacion("Monto máximo superado");
 		log.setPaso("verificacion de monto");
@@ -43,4 +50,6 @@ public class LogsService {
 		log.setResultado("OK");
 		return repository.save(log);
 	}
+
+	
 }

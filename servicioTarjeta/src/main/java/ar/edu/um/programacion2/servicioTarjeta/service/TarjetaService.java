@@ -3,15 +3,12 @@ package ar.edu.um.programacion2.servicioTarjeta.service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import ar.edu.um.programacion2.servicioTarjeta.exception.TarjetaNotFoundException;
-import ar.edu.um.programacion2.servicioTarjeta.model.Logs;
 import ar.edu.um.programacion2.servicioTarjeta.model.Tarjeta;
 import ar.edu.um.programacion2.servicioTarjeta.repository.ITarjetaRepository;
 
@@ -23,87 +20,45 @@ public class TarjetaService {
 	@Autowired
 	RestTemplate restTemplate;
 
-	public ResponseEntity<Object> find(Tarjeta t) throws TarjetaNotFoundException{
-		Logs log = new Logs();
-		String logFailure = "http://localhost:8082/logs/tarjetaNotFound";
+	public ResponseEntity<Object> find(Tarjeta t){
 		Long tarjeta_id = t.getId();
 		Tarjeta tar;
-		try {
-			tar = repository.findById(tarjeta_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
-		} catch (TarjetaNotFoundException e){
-			ResponseEntity<Object> r1 = restTemplate.postForEntity(logFailure, log, Object.class);
-			return new ResponseEntity<Object>(r1.getBody(), HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Object>(tar, HttpStatus.OK);
+		tar = repository.findById(tarjeta_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
+		return new ResponseEntity<Object>(tar, HttpStatus.OK);	
 	}
 	
 	public Tarjeta findById(Long tarjeta_id) {
 		return repository.findById(tarjeta_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
 	}
-	
-	public ResponseEntity<Object> checkTarjeta(Tarjeta t){
+		
+	public ResponseEntity<Object> checkMonto(Tarjeta t){
 		Double monto = t.getMonto();
-		String logSuccess = "http://localhost:8082/logs/tarjetaFound";			
-		String logMontoSuperado = "http://localhost:8082/logs/montoSuperado";
 		Optional<Tarjeta> tarjeta = repository.findById(t.getId());
-		Logs log = new Logs();
 		Tarjeta tar = tarjeta.get();
-		if (tarjeta.isPresent() == true) {
-			restTemplate.postForEntity(logSuccess, log, Object.class);
-			if (monto < 5000) {
-				return new ResponseEntity<Object>(tar, HttpStatus.OK);
-			}else if (monto<= tar.getMonto()) {
-				
-				return new ResponseEntity<Object>(tar, HttpStatus.OK);				
-			}else {
-				restTemplate.postForEntity(logMontoSuperado, log, Object.class);
-				return null;
+		if (monto <= 5000) {
+			return new ResponseEntity<Object>(tar, HttpStatus.OK);
+		}else if (monto <= tar.getMonto()) {
+			return new ResponseEntity<Object>(tar, HttpStatus.OK);
 			}
-		}else {
-			return null;
+		return null;
 		}
-	}
+
 	
 	public List<Tarjeta> findAll() {
 		return repository.findAll();
 	}
 
-	public ResponseEntity<Object> token(Long tarjetaId) {		
-		JSONObject jo = new JSONObject();
-		JSONObject jo2 = new JSONObject();
+	public ResponseEntity<Object> checkVencimiento(Long tarjetaId) {		
 		Optional<Tarjeta> tarjeta = repository.findById(tarjetaId);
-		if (tarjeta.isPresent() == true) {
-			Tarjeta tar = tarjeta.get();
-			Date ven = tar.getVencimiento();
-			Date today = new Date();			
-			if (ven.before(today)) {
-				jo2.put("codError", "21");
-				jo2.put("error", "Tarjeta Expirada");
-				return new ResponseEntity<Object>(jo2.toString(), HttpStatus.FORBIDDEN);				
-			}else {
-				return new ResponseEntity<Object>(HttpStatus.CREATED);
-			}			
+		Tarjeta tar = tarjeta.get();
+		Date ven = tar.getVencimiento();
+		Date today = new Date();			
+		if (ven.before(today)) {
+			return null;				
 		}else {
-			jo.put("codError", "20");
-			jo.put("error", "No existe tarjeta");
-			return new ResponseEntity<Object>(jo.toString(), HttpStatus.FORBIDDEN);
-		}
+			return new ResponseEntity<Object>(tar, HttpStatus.CREATED);
+		}			
 	}
 
-	public ResponseEntity<Object> monto(Long tarjetaId, Double monto) {
-		Tarjeta tar = repository.findByIdAndMonto(tarjetaId, monto);
-		JSONObject jo = new JSONObject();		
-		if (tar != null && monto<5000 && monto<=tar.getMonto()) {
-			return new ResponseEntity<Object>(HttpStatus.CREATED);			
-		} else {			
-			jo.put("codError", "30");
-			jo.put("error", "Monto máximo de venta superado");
-			return new ResponseEntity<Object>(jo.toString(), HttpStatus.FORBIDDEN);
-		}
-	}
-
-
-
-	
 	
 }
