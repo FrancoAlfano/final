@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import ar.edu.um.programacion2.servicioVentas.exception.VentaNotFoundException;
+import ar.edu.um.programacion2.servicioVentas.model.Cliente;
 import ar.edu.um.programacion2.servicioVentas.model.Logs;
 import ar.edu.um.programacion2.servicioVentas.model.Tarjeta;
 import ar.edu.um.programacion2.servicioVentas.model.Venta;
@@ -38,11 +39,16 @@ public class VentaService {
 		
 		Calendar fecha = Calendar.getInstance();
 		Tarjeta tar = new Tarjeta();
+		Cliente cliente = new Cliente();
+		cliente.setId(venta.getCliente_id());
 		Logs log = new Logs();
 		venta.setFecha(fecha.getTime());
 		tar.setId(venta.getTarjeta_id());
 		tar.setMonto(venta.getMonto());
+		tar.setCliente(cliente);
 		
+		System.out.println("EN VS TENEMOS: TARJETA: "+tar+" Y EL ID DEL CLIENTE: "+cliente);
+			
 		try {
 			restTemplate.postForEntity(findTarjeta, tar, Object.class);
 			restTemplate.postForEntity(tarjetaFound, log, Object.class);

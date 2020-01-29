@@ -1,4 +1,4 @@
-package ar.edu.um.programacion2.servicioVentas.model;
+package ar.edu.um.programacion2.servicioTarjeta.model;
 
 import java.io.Serializable;
 

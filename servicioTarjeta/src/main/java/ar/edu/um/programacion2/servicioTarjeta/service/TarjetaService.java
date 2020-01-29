@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ar.edu.um.programacion2.servicioTarjeta.exception.TarjetaNotFoundException;
+import ar.edu.um.programacion2.servicioTarjeta.model.Cliente;
 import ar.edu.um.programacion2.servicioTarjeta.model.Tarjeta;
 import ar.edu.um.programacion2.servicioTarjeta.repository.ITarjetaRepository;
 
@@ -22,8 +23,11 @@ public class TarjetaService {
 
 	public ResponseEntity<Object> find(Tarjeta t){
 		Long tarjeta_id = t.getId();
+		Cliente cliente = t.getCliente();
+		Long cliente_id = cliente.getId();
 		Tarjeta tar;
-		tar = repository.findById(tarjeta_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
+		
+		tar = repository.findByIdAndClienteId(tarjeta_id, cliente_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
 		return new ResponseEntity<Object>(tar, HttpStatus.OK);	
 	}
 	
