@@ -1,5 +1,6 @@
 package ar.edu.um.programacion2.servicioVentas.service;
 
+import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,9 +35,11 @@ public class VentaService {
 		String logFailure = "http://localhost:8082/logs/tarjetaNotFound";
 		String logMontoSuperado = "http://localhost:8082/logs/montoSuperado";
 		String logTarjetaVencida = "http://localhost:8082/logs/tarjetaExpirada";
-
+		
+		Calendar fecha = Calendar.getInstance();
 		Tarjeta tar = new Tarjeta();
 		Logs log = new Logs();
+		venta.setFecha(fecha.getTime());
 		tar.setId(venta.getTarjeta_id());
 		tar.setMonto(venta.getMonto());
 		
