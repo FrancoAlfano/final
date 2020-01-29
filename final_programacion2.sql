@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 21-01-2020 a las 18:30:41
--- Versión del servidor: 5.7.28-0ubuntu0.18.04.4
+-- Tiempo de generación: 29-01-2020 a las 20:25:28
+-- Versión del servidor: 5.7.29-0ubuntu0.18.04.1
 -- Versión de PHP: 5.6.32-1+ubuntu17.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -69,24 +69,32 @@ CREATE TABLE `logs` (
 --
 
 INSERT INTO `logs` (`logs_id`, `explicacion`, `id_venta`, `paso`, `resultado`) VALUES
-(69, 'Monto máximo superado', NULL, 'verificacion de monto', 'FALLO'),
-(70, 'Venta exitosa', 47, 'Venta', 'OK'),
-(71, 'Monto máximo superado', NULL, 'verificacion de monto', 'FALLO'),
-(72, 'Monto máximo superado', NULL, 'verificacion de monto', 'FALLO'),
-(73, 'Venta exitosa', 48, 'Venta', 'OK'),
-(74, 'Monto máximo superado', NULL, 'verificacion de monto', 'FALLO'),
-(75, 'Monto máximo superado', NULL, 'verificacion de monto', 'FALLO'),
-(76, 'tarjeta encontrada!', NULL, 'checkeo de tarjeta', 'OK'),
-(77, 'Venta exitosa', 49, 'Venta', 'OK'),
-(78, 'tarjeta encontrada!', NULL, 'checkeo de tarjeta', 'OK'),
-(79, 'Venta exitosa', 50, 'Venta', 'OK'),
-(80, 'Monto máximo superado', NULL, 'verificacion de monto', 'FALLO'),
-(81, 'tarjeta encontrada!', NULL, 'checkeo de tarjeta', 'OK'),
-(82, 'Venta exitosa', 51, 'Venta', 'OK'),
-(83, 'tarjeta encontrada!', NULL, 'checkeo de tarjeta', 'OK'),
-(84, 'Venta exitosa', 52, 'Venta', 'OK'),
-(85, 'tarjeta encontrada!', NULL, 'checkeo de tarjeta', 'OK'),
-(86, 'Venta exitosa', 53, 'Venta', 'OK');
+(209, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(210, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(211, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(212, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(213, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(214, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(215, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(216, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(217, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(218, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(219, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(220, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(221, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(222, 'tarjeta encontrada!', NULL, 'checkeo de tarjeta', 'OK'),
+(223, 'Tarjeta Vencida', NULL, 'Checkeo de vencimiento', 'FALLO'),
+(224, 'tarjeta no existe', NULL, 'checkeo de tarjeta', 'FALLO'),
+(225, 'tarjeta encontrada!', NULL, 'checkeo de tarjeta', 'OK'),
+(226, 'Venta exitosa', 34, 'Venta', 'OK'),
+(227, 'tarjeta encontrada!', NULL, 'checkeo de tarjeta', 'OK'),
+(228, 'Monto máximo superado', NULL, 'verificacion de monto', 'FALLO'),
+(229, 'tarjeta encontrada!', NULL, 'checkeo de tarjeta', 'OK'),
+(230, 'Monto máximo superado', NULL, 'verificacion de monto', 'FALLO'),
+(231, 'tarjeta encontrada!', NULL, 'checkeo de tarjeta', 'OK'),
+(232, 'Monto máximo superado', NULL, 'verificacion de monto', 'FALLO'),
+(233, 'tarjeta encontrada!', NULL, 'checkeo de tarjeta', 'OK'),
+(234, 'Venta exitosa', 35, 'Venta', 'OK');
 
 -- --------------------------------------------------------
 
@@ -110,7 +118,7 @@ CREATE TABLE `tarjeta` (
 
 INSERT INTO `tarjeta` (`tarjeta_id`, `cod_seguridad`, `numero`, `tipo`, `cliente_id`, `monto`, `vencimiento`) VALUES
 (3, 999, 101020203030, 'VISA', 1, 6000, '1970-01-01'),
-(4, 555, 101020203030, 'VISA', 2, 5000, '2019-10-10'),
+(4, 555, 101020203030, 'VISA', 2, 8000, '2020-08-20'),
 (5, 123, 101020203030, 'MC', 3, 5000, '2020-03-03'),
 (6, 999, 101020203030, 'MC', 4, 5000, '2020-02-05'),
 (7, 456, 101020206060, 'MC', 1, 40000, '2018-08-23'),
@@ -128,14 +136,14 @@ INSERT INTO `tarjeta` (`tarjeta_id`, `cod_seguridad`, `numero`, `tipo`, `cliente
 (20, 489, 101020812345, 'VISA', 15, 5000, '2020-12-15'),
 (21, 489, 101020812345, 'VISA', 14, 5000, '2020-12-15'),
 (22, 489, 101020812345, 'VISA', 11, 5000, '2020-12-15'),
-(23, 489, 101020812345, 'VISA', NULL, 5000, '2020-12-15'),
-(24, 489, 101020812345, 'VISA', NULL, 5000, '2020-12-15'),
-(25, 489, 101020812345, 'VISA', NULL, 5000, '2020-12-15'),
-(26, 489, 101020812345, 'VISA', NULL, 5000, '2020-12-15'),
-(27, 489, 101020812345, 'VISA', NULL, 5000, '2020-12-15'),
+(23, 489, 101020812345, 'VISA', 16, 5000, '2020-12-15'),
+(24, 489, 101020812345, 'VISA', 2, 5000, '2020-12-15'),
+(25, 489, 101020812345, 'VISA', 3, 5000, '2020-12-15'),
+(26, 489, 101020812345, 'VISA', 5, 5000, '2020-12-15'),
+(27, 489, 101020812345, 'VISA', 4, 5000, '2020-12-15'),
 (28, 489, 101020812345, 'VISA', 16, 5000, '2020-12-15'),
-(29, 489, 101020812345, 'VISA', NULL, 5000, '2020-12-15'),
-(30, 999, 10102088998, 'VISA', NULL, 8000, '2020-12-15');
+(29, 489, 101020812345, 'VISA', 3, 5000, '2020-12-15'),
+(30, 999, 10102088998, 'VISA', 4, 8000, '2020-12-15');
 
 -- --------------------------------------------------------
 
@@ -156,23 +164,12 @@ CREATE TABLE `venta` (
 --
 
 INSERT INTO `venta` (`venta_id`, `cliente`, `monto`, `tarjeta`, `fecha`) VALUES
-(37, 16, 8000, 1, '2022-11-10'),
-(38, 16, 8000, 12, '2022-11-10'),
-(39, 16, 4000, 12, '2022-11-10'),
-(40, 16, 4000, 12, '2022-11-10'),
-(41, 1, 2500, 3, '2022-11-10'),
-(42, 1, 2500, 3, '2022-11-10'),
-(43, 1, 2500, 3, '2022-11-10'),
-(44, 1, 2500, 3, '2022-11-10'),
-(45, 1, 3000, 3, '2022-11-10'),
-(46, 1, 3000, 3, '2022-11-10'),
-(47, 1, 7000, 3, '2022-11-10'),
-(48, 1, 7000, 3, '2022-11-10'),
-(49, 1, 5000, 8, '2022-11-10'),
-(50, 1, 5000, 23, '2022-11-10'),
-(51, 2, 4000, 3, '2022-11-10'),
-(52, 2, 5000, 3, '2022-11-10'),
-(53, 2, 5000, 3, '2022-11-10');
+(30, 1, 5000, 4, '2020-01-29'),
+(31, 1, 5000, 4, '2020-01-29'),
+(32, 1, 5000, 4, '2020-01-29'),
+(33, 1, 5000, 4, '2020-01-29'),
+(34, 2, 5000, 4, '2020-01-29'),
+(35, 2, 8000, 4, '2020-01-29');
 
 --
 -- Índices para tablas volcadas
@@ -216,7 +213,7 @@ ALTER TABLE `cliente`
 -- AUTO_INCREMENT de la tabla `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `logs_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `logs_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 --
 -- AUTO_INCREMENT de la tabla `tarjeta`
 --
@@ -226,7 +223,7 @@ ALTER TABLE `tarjeta`
 -- AUTO_INCREMENT de la tabla `venta`
 --
 ALTER TABLE `venta`
-  MODIFY `venta_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `venta_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- Restricciones para tablas volcadas
 --
