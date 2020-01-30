@@ -25,14 +25,17 @@ public class TarjetaService {
 		Long tarjeta_id = t.getId();
 		Cliente cliente = t.getCliente();
 		Long cliente_id = cliente.getId();
-		Tarjeta tar;
-		
+		Tarjeta tar;		
 		tar = repository.findByIdAndClienteId(tarjeta_id, cliente_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
 		return new ResponseEntity<Object>(tar, HttpStatus.OK);	
 	}
 	
 	public Tarjeta findById(Long tarjeta_id) {
-		return repository.findById(tarjeta_id).orElseThrow(()-> new TarjetaNotFoundException(tarjeta_id));
+		Optional<Tarjeta> tar = repository.findById(tarjeta_id);
+		if (tar.isPresent()) {
+			return tar.get();
+		}
+		return null;
 	}
 		
 	public ResponseEntity<Object> checkMonto(Tarjeta t){
