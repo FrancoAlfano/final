@@ -64,7 +64,7 @@ public class VentaService {
 			return new ResponseEntity<>(reLogSup.getBody(), HttpStatus.FORBIDDEN);
 		}else {
 			Venta v = repository.save(venta);
-			log.setId_venta(v.getId());			
+			log.setId_venta(v.getId());
 			restTemplate.postForEntity(logVentaSuccess, log, Object.class);
 			return new ResponseEntity<Object>(v, HttpStatus.CREATED);
 		}

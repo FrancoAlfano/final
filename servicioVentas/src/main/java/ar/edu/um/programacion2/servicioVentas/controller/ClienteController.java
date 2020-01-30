@@ -39,14 +39,11 @@ public class ClienteController {
 		String nombre = cliente.getNombre();
 		String apellido = cliente.getApellido();	
 		return new ResponseEntity<Object>(service.findByNombreAndApellido(nombre, apellido), HttpStatus.OK);
-		
 	}
 	
 	@PostMapping("/add")
 	public ResponseEntity<Object> add(@RequestBody Cliente cliente){
-		Cliente cli = service.add(cliente);
-		Long id_cliente = cli.getId();
-		return new ResponseEntity<Object>(id_cliente, HttpStatus.OK);
+		return new ResponseEntity<Object>(service.add(cliente), HttpStatus.CREATED);
 	}
 	
 	@DeleteMapping("/remove/{numero}")

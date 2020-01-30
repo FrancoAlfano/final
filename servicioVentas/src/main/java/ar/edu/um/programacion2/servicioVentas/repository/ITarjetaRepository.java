@@ -11,4 +11,5 @@ public interface ITarjetaRepository extends JpaRepository<Tarjeta, Long> {
 
 	public List<Tarjeta> findAllById(Long id);
 	public List<Tarjeta> findByNumero(Long numero);
+	public Tarjeta findByNumeroAndClienteId(Long numero, Long clienteId);
 }

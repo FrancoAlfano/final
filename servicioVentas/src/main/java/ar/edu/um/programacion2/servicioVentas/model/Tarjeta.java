@@ -48,7 +48,7 @@ public class Tarjeta implements Serializable{
 	@Size(max = 100)
 	private String tipo = "";
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 	

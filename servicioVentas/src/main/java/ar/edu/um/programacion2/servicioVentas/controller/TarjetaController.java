@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.um.programacion2.servicioVentas.model.Cliente;
 import ar.edu.um.programacion2.servicioVentas.model.Tarjeta;
 import ar.edu.um.programacion2.servicioVentas.service.TarjetaService;
 
@@ -36,8 +37,9 @@ public class TarjetaController {
 	}
 	
 	@PostMapping("/token")
-	public ResponseEntity<Long> findByNumero(@RequestBody Tarjeta tar){
-		return new ResponseEntity<Long>(service.findByNumero(tar.getNumero()), HttpStatus.OK);
+	public Long findByNumero(@RequestBody Tarjeta tar){
+		Cliente cliente = tar.getCliente();
+		return service.findByNumeroAndClienteId(tar.getNumero(), cliente.getId());
 	}
 	
 	@PostMapping("/add")

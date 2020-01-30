@@ -20,8 +20,7 @@ public class ClienteService {
 	}
 
 	public Cliente add(Cliente cliente) {
-		repository.save(cliente);
-		return cliente;
+		return repository.save(cliente);
 	}
 
 	public Cliente findById(Long clienteId) {
@@ -31,9 +30,11 @@ public class ClienteService {
 	
 	public Long findByNombreAndApellido(String nombre, String apellido) {
 		Cliente cliente = repository.findByNombreAndApellido(nombre, apellido);
+		if (cliente == null) {
+			return 0l;
+		}
 		Long id_cliente = cliente.getId();
 		return id_cliente;
-
 	}
 	
 
