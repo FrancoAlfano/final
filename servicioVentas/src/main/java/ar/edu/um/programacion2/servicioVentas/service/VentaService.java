@@ -28,7 +28,6 @@ public class VentaService {
 	}
 
 	public ResponseEntity<Object> add(Venta venta) {		
-		//sends to servicioTarjeta -> TarjetaController
 		String findTarjeta = "http://localhost:8081/tarjeta/find";
 		String checkVencimiento = "http://localhost:8081/tarjeta/checkVencimiento";
 		String checkMonto = "http://localhost:8081/tarjeta/checkMonto";
@@ -36,6 +35,7 @@ public class VentaService {
 		String logFailure = "http://localhost:8082/logs/tarjetaNotFound";
 		String logMontoSuperado = "http://localhost:8082/logs/montoSuperado";
 		String logTarjetaVencida = "http://localhost:8082/logs/tarjetaExpirada";
+		String logVentaSuccess = "http://localhost:8082/logs/ventaSuccess";
 		
 		Calendar fecha = Calendar.getInstance();
 		Tarjeta tar = new Tarjeta();
@@ -47,30 +47,25 @@ public class VentaService {
 		tar.setMonto(venta.getMonto());
 		tar.setCliente(cliente);
 		
-		System.out.println("EN VS TENEMOS: TARJETA: "+tar+" Y EL ID DEL CLIENTE: "+cliente);
-			
 		try {
 			restTemplate.postForEntity(findTarjeta, tar, Object.class);
 			restTemplate.postForEntity(tarjetaFound, log, Object.class);
 		}catch (HttpServerErrorException e) {
 			ResponseEntity<Object> reTarjetaNotFound = restTemplate.postForEntity(logFailure, log, Object.class);
 			return new ResponseEntity<Object>(reTarjetaNotFound.getBody(), HttpStatus.NOT_FOUND);
-		}
-		
+		}		
 		ResponseEntity<Object> reTarVencimiento = restTemplate.postForEntity(checkVencimiento, tar, Object.class);
 		if (reTarVencimiento.getBody() == null) {
 			return restTemplate.postForEntity(logTarjetaVencida, log, Object.class);
-		}
-		
+		}		
 		ResponseEntity<Object> reTarjeta = restTemplate.postForEntity(checkMonto, tar, Object.class);
 		if (reTarjeta.getBody() == null) {
 			ResponseEntity<Object> reLogSup = restTemplate.postForEntity(logMontoSuperado, log, Object.class);
 			return new ResponseEntity<>(reLogSup.getBody(), HttpStatus.FORBIDDEN);
 		}else {
 			Venta v = repository.save(venta);
-			log.setId_venta(v.getId());
-			String ventaSuccess = "http://localhost:8082/logs/ventaSuccess";
-			restTemplate.postForEntity(ventaSuccess, log, Object.class);
+			log.setId_venta(v.getId());			
+			restTemplate.postForEntity(logVentaSuccess, log, Object.class);
 			return new ResponseEntity<Object>(v, HttpStatus.CREATED);
 		}
 	}
