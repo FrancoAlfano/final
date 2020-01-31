@@ -1,6 +1,5 @@
 package ar.edu.um.programacion2.servicioVentas.service;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +26,7 @@ public class VentaService {
 	public List<Venta> findAll() {		
 		return repository.findAll();
 	}
-	
-	public List<Venta> getAllVentas() {
-		List<Venta> result = (List<Venta>) repository.findAll();
-		
-		if(result.size() > 0) {
-			return result;
-		} else {
-			return new ArrayList<Venta>();
-		}
-	}
+
 
 	public ResponseEntity<Object> add(Venta venta) {		
 		String findTarjeta = "http://localhost:8081/tarjeta/find";
