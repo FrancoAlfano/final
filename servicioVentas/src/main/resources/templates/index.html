@@ -3,17 +3,16 @@
 <head>
   <link rel="stylesheet" href="styles.css">
     <title>Getting Started: Serving Web Content</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="application/json" />
 </head>
 <body>
     <h4>Hola mundo</h4>
     <a href="/venta/all">Get all clientes</a>
     <br><br>
-	<form action="/tarjeta/find/" method="get">
-	  Id de Tarjeta:<br>
-	  <input type="number" name="tarjeta_id" value="3"><br><br>
+    
+	<form enctype='application/json' action="/tarjeta/token" method="post">
+	  <input type="number" name='tarjeta_id' value="4">
 	  
-	  <input type="submit" value="Ingresar">
 	</form>
     
 </body>
