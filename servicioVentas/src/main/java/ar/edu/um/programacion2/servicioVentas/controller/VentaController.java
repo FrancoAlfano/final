@@ -45,7 +45,7 @@ public class VentaController {
 		return "redirect:/venta/";
 	}
 	
-	@PostMapping("/agregarVenta")
+	@RequestMapping("/agregarVenta")
 	public String viewAgregarVenta(Model model) {
 		model.addAttribute("venta", new Venta());
 		return "venta-add";
