@@ -36,6 +36,6 @@ public class Venta implements Serializable{
 	private Double monto;
 	
 	@Column(name = "fecha")
-	private Date fecha;
+	private String fecha;
 	
 }

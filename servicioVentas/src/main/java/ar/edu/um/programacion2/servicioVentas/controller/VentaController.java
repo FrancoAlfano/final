@@ -61,26 +61,22 @@ public class VentaController {
 		return "venta-add";
 	}
 
-	@RequestMapping(path = {"/updateOrCreate", "/updateOrCreate/{id}"})
-	public String updateOrCreate(Model model, @PathVariable("id") Optional<Long> id){
-		if (id.isPresent()) {
-			Venta venta = service.findById(id.get());
-			model.addAttribute("venta", venta);
-		} else {
-			model.addAttribute("venta", new Venta());
-		}
-		return "venta-add";
+	@RequestMapping("/goToUpdate/{id}")
+	public String updateOrCreate(Model model, @PathVariable("id") Long id){
+		Venta venta = service.findById(id);
+		model.addAttribute("venta", venta);
+		return "venta-update";
 	}
 	
 	@RequestMapping(path = "/createVenta")
-	public String createOrUpdateEmployee(Venta venta) {
+	public String createVenta(Venta venta) {
 		service.add(venta);
 		return "redirect:/venta/all";
 	}
 	
-	@RequestMapping("/update")
-	public String update(@RequestBody Venta venta, @PathVariable ("id") Long ventaId){
-		service.update(venta,ventaId);
+	@PostMapping("/update")
+	public String update(Venta venta){
+		service.update(venta,venta.getId());
 		return "redirect:/venta/all";
 		
 	}

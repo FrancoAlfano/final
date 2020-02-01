@@ -1,5 +1,6 @@
 package ar.edu.um.programacion2.servicioVentas.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class VentaService {
 	}
 
 
-	public ResponseEntity<Object> add(Venta venta) {		
+	public ResponseEntity<Object> add(Venta venta) {
 		String findTarjeta = "http://localhost:8081/tarjeta/find";
 		String checkVencimiento = "http://localhost:8081/tarjeta/checkVencimiento";
 		String checkMonto = "http://localhost:8081/tarjeta/checkMonto";
@@ -38,12 +39,13 @@ public class VentaService {
 		String logTarjetaVencida = "http://localhost:8082/logs/tarjetaExpirada";
 		String logVentaSuccess = "http://localhost:8082/logs/ventaSuccess";
 		
-		Calendar fecha = Calendar.getInstance();
 		Tarjeta tar = new Tarjeta();
 		Cliente cliente = new Cliente();
-		cliente.setId(venta.getCliente_id());
 		Logs log = new Logs();
-		venta.setFecha(fecha.getTime());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar fecha = Calendar.getInstance();
+		venta.setFecha(sdf.format(fecha.getTime()));
+		cliente.setId(venta.getCliente_id());
 		tar.setId(venta.getTarjeta_id());
 		tar.setMonto(venta.getMonto());
 		tar.setCliente(cliente);

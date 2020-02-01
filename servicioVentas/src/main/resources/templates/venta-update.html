@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Agregar Venta</title>
+    <title>Actualizar Venta</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
@@ -12,11 +12,11 @@
  
 <body>
     <div class="container my-5">
-        <h3> Add Venta</h3>
+        <h3> Actualizar Venta</h3>
         <div class="card">
             <div class="card-body">
                 <div class="col-md-10">
-                    <form action="#" th:action="@{/venta/createVenta}" th:object="${venta}" method="post">
+                    <form action="#" th:action="@{/venta/update}" th:object="${venta}" method="post">
                         <div class="row">
                             <div class="form-group col-md-8">
                                 <label for="name" class="col-form-label">ID de Cliente</label> 
@@ -32,6 +32,11 @@
                                 <label for="monto" class="col-form-label">Monto</label> 
                                 <input type="number" step="any" th:field="*{monto}" class="form-control"
                                             id="monto" placeholder="Monto" />
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="name" class="col-form-label">Fecha de la Venta</label> 
+                                <input type="datetime" th:field="*{fecha}" class="form-control"
+                                            id="fecha" placeholder="Fecha de Venta" />
                             </div>
 
  
