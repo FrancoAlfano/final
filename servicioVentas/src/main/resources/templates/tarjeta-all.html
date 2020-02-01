@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>All Ventas</title>
+    <title>All Tarjetas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
@@ -14,43 +14,46 @@
     <div class="container my-2">
     <div class="card">
     <div class="card-body">
-        <div th:switch="${ventas}" class="container my-5">
-            <p class="my-5">
-                <a href="/venta/agregarVenta" class="btn btn-primary">
-                <i class="fas fa-user-plus ml-2"> Add Venta </i></a>
+        <div th:switch="${tarjetas}" class="container my-5">
+            <p class="my-4">
+                <a href="/tarjeta/agregarTarjeta" class="btn btn-primary">
+                <i class="fas fa-user-plus ml-2"> Add Tarjeta </i></a>
                 
                 <a href="/" class="btn btn-primary">
                 <i class="fas ml-1"> Volver </i></a>
             </p>
+            
             <div class="col-md-15">
                 <h2 th:case="null">No record found !!</h2>
                 <div th:case="*">
                     <table class="table table-striped table-responsive-md">
                         <thead>
                             <tr>
-                                <th>ID de Venta</th>
-                                <th>ID de Cliente</th>
                                 <th>ID de Tarjeta</th>
+                                <th>Codigo de Seguridad</th>
+                                <th>Numero de Tarjeta</th>
+                                <th>Tipo</th>
                                 <th>Monto Permitido</th>
-                                <th>Fecha de la Venta</th>
+                                <th>Vencimiento</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr th:each="venta : ${ventas}">
-                            	<td th:text="${venta.id}"></td>
-                                <td th:text="${venta.cliente_id}"></td>
-                                <td th:text="${venta.tarjeta_id}"></td>
-                                <td th:text="${venta.monto}"></td>
-                                <td th:text="${venta.fecha}"></td>
+                        <tbody align="center">
+                            <tr th:each="tarjeta : ${tarjetas}">
+                            	<td th:text="${tarjeta.id}"></td>
+                            	<td th:text="${tarjeta.cod_seguridad}"></td>
+                                <td th:text="${tarjeta.numero}"></td>
+                                <td th:text="${tarjeta.tipo}"></td>
+                                <td th:text="${tarjeta.monto}"></td>
+                                <td th:text="${tarjeta.vencimiento}"></td>
                                 <td>
-                                    <a th:href="@{/venta/goToUpdate/{id}(id=${venta.id})}" class="btn btn-primary">
+                                    <a th:href="@{/tarjeta/goToUpdate/{id}(id=${tarjeta.id})}" class="btn btn-primary">
                                         <i class="fas fa-user-edit ml-2"></i>
                                     </a>
                                 </td>
                                 <td>
-                                    <a th:href="@{/venta/remove/{id}(id=${venta.id})}" class="btn btn-primary">
+                                    <a th:href="@{/tarjeta/remove/{id}(id=${tarjeta.id})}" class="btn btn-primary">
                                         <i class="fas fa-user-times ml-2"></i>
                                     </a>
                                 </td>

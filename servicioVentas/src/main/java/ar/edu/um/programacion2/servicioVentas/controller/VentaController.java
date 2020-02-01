@@ -21,12 +21,8 @@ public class VentaController {
 	@Autowired
 	private VentaService service;
 	
-	@RequestMapping()
-	public String ventaHome() {
-		return "venta-home";
-	}
 	
-	@RequestMapping("/all")
+	@RequestMapping()
 	public String getAllVentas(Model model) {
 		List<Venta> list = service.findAll();
 		model.addAttribute("ventas", list);
@@ -46,10 +42,10 @@ public class VentaController {
 	@RequestMapping("/remove/{numero}")
 	public String delete(@PathVariable Long numero){
 		service.delete(numero);
-		return "redirect:/venta/all";
+		return "redirect:/venta/";
 	}
 	
-	@RequestMapping("/agregarVenta")
+	@PostMapping("/agregarVenta")
 	public String viewAgregarVenta(Model model) {
 		model.addAttribute("venta", new Venta());
 		return "venta-add";
@@ -62,16 +58,16 @@ public class VentaController {
 		return "venta-update";
 	}
 	
-	@RequestMapping(path = "/createVenta")
+	@RequestMapping("/createVenta")
 	public String createVenta(Venta venta) {
 		service.add(venta);
-		return "redirect:/venta/all";
+		return "redirect:/venta/";
 	}
 	
 	@PostMapping("/update")
 	public String update(Venta venta){
 		service.update(venta,venta.getId());
-		return "redirect:/venta/all";
+		return "redirect:/venta/";
 		
 	}
 	

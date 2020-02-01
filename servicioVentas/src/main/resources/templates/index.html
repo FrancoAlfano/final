@@ -14,8 +14,19 @@
     <div class="container my-2">
     <div class="card">
     <div class="card-body">
+    <h3 align="center"> Bienvenido!</h3>
     
-    <a th:href="@{/venta/all}">Mostrar todas las Ventas</a>
+    <p class="my-4" align="center">
+		<a th:href="@{/venta/}" class="btn btn-primary">
+		<i class="fas ml-1"> Ir a Ventas! </i></a>
+
+		<a th:href="@{/tarjeta/}" class="btn btn-primary">
+		<i class="fas ml-1"> Ir a Tarjetas! </i></a>
+
+		<a th:href="@{/cliente/}" class="btn btn-primary">
+		<i class="fas ml-1"> Ir a Clientes! </i></a>
+    </p>
+
         
     </div>
     </div>
