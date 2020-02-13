@@ -2,6 +2,8 @@ package ar.edu.um.programacion2.servicioVentas.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ar.edu.um.programacion2.servicioVentas.exception.TarjetaNotFoundException;
 import ar.edu.um.programacion2.servicioVentas.model.Tarjeta;
@@ -26,13 +28,13 @@ public class TarjetaService {
 		return repository.findById(tarjetaId).orElseThrow(()-> new TarjetaNotFoundException(tarjetaId));
 	}
 	
-	public Long findByNumeroAndClienteId(Long numero, Long cliente_id) {
+	public ResponseEntity<Long> findByNumeroAndClienteId(Long numero, Long cliente_id) {
 		Tarjeta tar = repository.findByNumeroAndClienteId(numero, cliente_id);
 		if (tar == null) {
-			return 0l;
+			return new ResponseEntity<Long>(0l, HttpStatus.NOT_FOUND);
 		}
 		Long tarjeta_id = tar.getId();
-		return tarjeta_id;
+		return new ResponseEntity<Long>(tarjeta_id, HttpStatus.OK);
 	}
 	
 	public Void delete(Long tarjetaId) {

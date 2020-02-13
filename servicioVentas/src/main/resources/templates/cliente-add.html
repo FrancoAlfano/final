@@ -12,7 +12,7 @@
  
 <body>
     <div class="container my-5">
-        <h3> Add Cliente</h3>
+        <h3> Agregar Cliente</h3>
         <div class="card">
             <div class="card-body">
                 <div class="col-md-10">
@@ -29,7 +29,9 @@
                                             id="apellido" placeholder="Apellido" />
                             </div>
                             <div class="col-md-6">
-                                <input type="submit" class="btn btn-primary" value=" Submit ">
+                                <input type="submit" class="btn btn-primary" value=" Agregar ">
+                                <a href="/cliente" class="btn btn-secondary">
+	               				<i class="fas fa-arrow-alt-circle-left"></i></a>
                             </div>
  
                             <input type="hidden" id="id" th:field="*{id}">

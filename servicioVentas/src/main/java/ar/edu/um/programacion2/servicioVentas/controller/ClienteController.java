@@ -7,9 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,6 +23,39 @@ import ar.edu.um.programacion2.servicioVentas.service.ClienteService;
 public class ClienteController {
 	@Autowired
 	private ClienteService service;
+	
+	@GetMapping("/all")
+	public ResponseEntity<List<Cliente>> findAll(){
+		return new ResponseEntity<List<Cliente>>(service.findAll(), HttpStatus.OK);
+	}
+	
+	@PostMapping("/add")
+	public ResponseEntity<Object> add(@RequestBody Cliente cliente){
+		return new ResponseEntity<Object>(service.add(cliente), HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/postmanUpdate/{clienteId}")
+	public ResponseEntity<Cliente> update(@RequestBody Cliente cliente, @PathVariable Long clienteId){
+		return new ResponseEntity<Cliente>(service.update(cliente,clienteId), HttpStatus.OK);
+		
+	}
+	
+	@DeleteMapping("/postmanRemove/{numero}")
+	public ResponseEntity<Void> postmanDelete(@PathVariable Long numero){
+		return new ResponseEntity<Void>(service.delete(numero), HttpStatus.OK);
+	}
+	
+	@GetMapping("/find/{clienteId}")
+	public ResponseEntity<Cliente> findById(@PathVariable Long clienteId){
+		return new ResponseEntity<Cliente>(service.findById(clienteId), HttpStatus.OK);
+	}
+	
+	@PostMapping("/token")
+	public ResponseEntity<Object> token(@RequestBody Cliente cliente){
+		String nombre = cliente.getNombre();
+		String apellido = cliente.getApellido();	
+		return new ResponseEntity<Object>(service.findByNombreAndApellido(nombre, apellido), HttpStatus.OK);
+	}
 	
 	@RequestMapping()
 	public String getAllClientes(Model model) {
@@ -54,45 +89,11 @@ public class ClienteController {
 		return "redirect:/cliente/";
 		
 	}
-	
-	@GetMapping("/find/{clienteId}")
-	public ResponseEntity<Cliente> findById(@PathVariable Long clienteId){
-		return new ResponseEntity<Cliente>(service.findById(clienteId), HttpStatus.OK);
-	}
-	
-	@PostMapping("/token")
-	public ResponseEntity<Object> token(@RequestBody Cliente cliente){
-		String nombre = cliente.getNombre();
-		String apellido = cliente.getApellido();	
-		return new ResponseEntity<Object>(service.findByNombreAndApellido(nombre, apellido), HttpStatus.OK);
-	}
-	
+
 	@RequestMapping("/remove/{numero}")
 	public String delete(@PathVariable Long numero){
 		service.delete(numero);
 		return "redirect:/cliente/";
 	}
 	
-	/*
-	@GetMapping("/all")
-	public ResponseEntity<List<Cliente>> findAll(){
-		return new ResponseEntity<List<Cliente>>(service.findAll(), HttpStatus.OK);
-	}
-	
-	@PostMapping("/add")
-	public ResponseEntity<Object> add(@RequestBody Cliente cliente){
-		return new ResponseEntity<Object>(service.add(cliente), HttpStatus.CREATED);
-	}
-	
-	@DeleteMapping("/remove/{numero}")
-	public ResponseEntity<Void> delete(@PathVariable Long numero){
-		return new ResponseEntity<Void>(service.delete(numero), HttpStatus.NO_CONTENT);
-	}
-	
-	@PutMapping("/update/{clienteId}")
-	public ResponseEntity<Cliente> update(@RequestBody Cliente cliente, @PathVariable Long clienteId){
-		return new ResponseEntity<Cliente>(service.update(cliente,clienteId), HttpStatus.OK);
-		
-	}
-	*/
 }

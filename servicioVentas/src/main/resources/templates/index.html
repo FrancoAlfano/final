@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>WELCOME!</title>
+    <title>Inicio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
@@ -14,19 +14,21 @@
     <div class="container my-2">
     <div class="card">
     <div class="card-body">
-    <h3 align="center"> Bienvenido!</h3>
     
-    <p class="my-4" align="center">
-		<a th:href="@{/venta/}" class="btn btn-primary">
-		<i class="fas ml-1"> Ir a Ventas! </i></a>
+    <p class="my-3" align="center">
+	    <img src="logo.png" alt="Logo" align="middle" width="598" height="180">
+	    <br><br><br><br>
+	    
+    
+		<a th:href="@{/venta/}" class="btn btn-primary btn-lg">
+		<i class="fas ml-1">Ventas </i></a>
+  
+		<a th:href="@{/tarjeta/}" class="btn btn-primary btn-lg">
+		<i class="fas ml-1">Tarjetas </i></a>
 
-		<a th:href="@{/tarjeta/}" class="btn btn-primary">
-		<i class="fas ml-1"> Ir a Tarjetas! </i></a>
-
-		<a th:href="@{/cliente/}" class="btn btn-primary">
-		<i class="fas ml-1"> Ir a Clientes! </i></a>
-    </p>
-
+		<a th:href="@{/cliente/}" class="btn btn-primary btn-lg">
+		<i class="fas ml-1">Clientes </i></a>
+	</p>
         
     </div>
     </div>
