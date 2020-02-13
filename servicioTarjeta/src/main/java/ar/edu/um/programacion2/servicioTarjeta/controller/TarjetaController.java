@@ -21,10 +21,6 @@ public class TarjetaController {
 	@Autowired
 	private TarjetaService service;
 	
-	@PostMapping("/jsonCheck")
-	public ResponseEntity<Object> jsonCheck(@RequestBody Tarjeta tarjeta){
-		return new ResponseEntity<Object>(service.findById(tarjeta.getId()), HttpStatus.OK);
-	}
 	
 	@PostMapping("/find")
 	public ResponseEntity<Object> find(@RequestBody Tarjeta tarjeta_id){
@@ -46,4 +42,9 @@ public class TarjetaController {
 		return service.checkVencimiento(tar.getId());
 	}
 
+	@PostMapping("/jsonCheck")
+	public ResponseEntity<Object> jsonCheck(@RequestBody Tarjeta tarjeta){
+		return new ResponseEntity<Object>(service.findById(tarjeta.getId()), HttpStatus.OK);
+	}
+	
 }
